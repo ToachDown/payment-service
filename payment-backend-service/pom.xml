@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>payment-backend-template</artifactId>
+    <artifactId>payment-backend-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>payment-backend-template</name>
-    <description>payment-backend-template</description>
+    <name>payment-backend-service</name>
+    <description>payment-backend-service</description>
     <properties>
         <java.version>11</java.version>
     </properties>
