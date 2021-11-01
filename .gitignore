@@ -1,0 +1,14 @@
+.idea
+/bluecode-pay/.mvn
+/bluecode-pay/HELP.md
+/bluecode-pay/mvnw.cmd
+/bluecode-pay/mvnw
+/bluecode-pay/target
+
+/payment-backend-template/target
+
+/payment-backend-service/.mvn
+/payment-backend-service/HELP.md
+/payment-backend-service/mvnw
+/payment-backend-service/mvnw.cmd
+/payment-backend-service/target
