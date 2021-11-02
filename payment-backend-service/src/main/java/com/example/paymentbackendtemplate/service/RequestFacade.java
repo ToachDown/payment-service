@@ -20,7 +20,6 @@ public class RequestFacade {
     }
 
     public ResponseMessage getAnswer (RequestMessage request) {
-        var a = requestDelegatorMap.get(request.getType()).getAnswer(request);
-        return a;
+        return requestDelegatorMap.get(request.getType()).getAnswer(request);
     }
 }

@@ -16,7 +16,7 @@ class PaymentBackendTemplateApplicationTests {
 
     @Test
     void contextLoads() {
-        final RequestMessageBluecode requestMessage = new RequestMessageBluecode();
+        final RequestMessageBluecode requestMessage = new RequestMessageBluecode("bluecode-pay");
         System.out.println(requestFacade.getAnswer(requestMessage));
     }
 
