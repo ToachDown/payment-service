@@ -1,7 +1,8 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.bluecodepay.model.RequestMessageBluecode;
 import com.example.paymentbackendtemplate.service.RequestFacade;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,9 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/get-payment", produces = "application/json", consumes = "application/json" )
-    public ResponseMessage getCurrentPayment (@RequestBody RequestMessage requestMessage) {
-        return requestFacade.getAnswer(new RequestMessageBluecode(requestMessage.getType()));
+    public ResponseMessage getCurrentPayment () throws JsonProcessingException {
+        return null;
+  //      return requestFacade.getAnswer(new RequestMessageBluecode(requestMessage.getType()));
     }
 
     @PostMapping("/cancel")

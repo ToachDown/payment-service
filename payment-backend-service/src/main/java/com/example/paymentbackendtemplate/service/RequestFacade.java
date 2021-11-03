@@ -1,9 +1,7 @@
 package com.example.paymentbackendtemplate.service;
 
-import com.example.bluecodepay.service.RequestDelegatorImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import template.interfaces.RequestDelegator;
+import template.interfaces.PaymentResolver;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
 
@@ -12,14 +10,14 @@ import java.util.Map;
 @Component
 public class RequestFacade {
 
-    private final Map<String, RequestDelegator<RequestMessage, ResponseMessage>> requestDelegatorMap;
+    private final Map<String, PaymentResolver<RequestMessage, ResponseMessage>> paymentResolverMap;
 
     @SuppressWarnings("SpringJavaInjectonPointsAutowiringInspection")
-    public RequestFacade(final Map<String, RequestDelegator<RequestMessage, ResponseMessage>> requestsDelegatorMap) {
-        this.requestDelegatorMap = requestsDelegatorMap;
+    public RequestFacade(final Map<String, PaymentResolver<RequestMessage, ResponseMessage>> paymentResolverMap) {
+        this.paymentResolverMap = paymentResolverMap;
     }
 
     public ResponseMessage getAnswer (RequestMessage request) {
-        return requestDelegatorMap.get(request.getType()).getAnswer(request);
+        return paymentResolverMap.get(request.getType()).getAnswer(request);
     }
 }

@@ -1,6 +1,6 @@
 package template.interfaces;
 
-public interface RequestDelegator<T, R> {
+public interface PaymentResolver<T, R> {
 
     R getAnswer (T request);
 
