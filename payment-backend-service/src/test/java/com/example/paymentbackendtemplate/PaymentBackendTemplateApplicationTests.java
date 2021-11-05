@@ -1,14 +1,16 @@
 package com.example.paymentbackendtemplate;
 
 import com.example.bluecodepay.model.RequestMessageBluecode;
+import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import com.example.paymentbackendtemplate.service.RequestFacade;
-import com.example.paymentbackendtemplate.configuration.MapperConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import template.model.RequestMessage;
+
+import java.util.List;
 
 @SpringBootTest
 class PaymentBackendTemplateApplicationTests {
@@ -18,6 +20,9 @@ class PaymentBackendTemplateApplicationTests {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private PaymentRepository paymentRepo;
 
 
     @Test
@@ -32,7 +37,10 @@ class PaymentBackendTemplateApplicationTests {
         final String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMess);
         System.out.println(json);
         RequestMessage requestMessage = objectMapper.readValue(json, RequestMessage.class);
+        paymentRepo.save(requestMessage);
+        paymentRepo.findAll().forEach(System.out::println);
         System.out.println(requestFacade.getAnswer(requestMessage));
     }
+
 
 }

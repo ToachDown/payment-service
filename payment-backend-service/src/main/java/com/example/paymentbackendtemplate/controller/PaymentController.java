@@ -1,14 +1,21 @@
 package com.example.paymentbackendtemplate.controller;
 
+import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import com.example.paymentbackendtemplate.service.RequestFacade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.jfr.ContentType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 @Getter
@@ -18,6 +25,12 @@ public class PaymentController {
 
     @Autowired
     private RequestFacade requestFacade;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @PostMapping("/start-payment")
     public void startPayment() {
@@ -35,9 +48,10 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/get-payment", produces = "application/json", consumes = "application/json" )
-    public ResponseMessage getCurrentPayment () throws JsonProcessingException {
-        return null;
-  //      return requestFacade.getAnswer(new RequestMessageBluecode(requestMessage.getType()));
+    public List<RequestMessage> getCurrentPayment (@RequestBody final String jsonString) throws JsonProcessingException {
+        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
+        paymentRepository.save(requestMessage);
+        return paymentRepository.findAll();
     }
 
     @PostMapping("/cancel")

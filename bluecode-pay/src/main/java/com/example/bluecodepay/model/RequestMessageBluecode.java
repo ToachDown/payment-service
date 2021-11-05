@@ -1,19 +1,19 @@
 package com.example.bluecodepay.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import template.model.RequestMessage;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@NoArgsConstructor
+@Entity
 @JsonTypeName("requestBluecode")
 public class RequestMessageBluecode extends RequestMessage {
 
@@ -30,6 +30,4 @@ public class RequestMessageBluecode extends RequestMessage {
         this.barcode = barcode;
         this.requestAmount = requestAmount;
     }
-
-
 }

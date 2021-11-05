@@ -14,8 +14,8 @@ public class MapperConfiguration {
 
     @Bean
     public ObjectMapper getConfiguredMapper (List<List<NamedType>> subTypesList) {
-        final var objectMapper = new ObjectMapper();
-        final var subTypes = subTypesList.stream()
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final NamedType[] subTypes = subTypesList.stream()
                 .flatMap(Collection::stream)
                 .toArray(NamedType[]::new);
         objectMapper.registerSubtypes(subTypes);

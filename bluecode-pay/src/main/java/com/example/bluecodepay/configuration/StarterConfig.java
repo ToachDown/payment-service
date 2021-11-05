@@ -18,4 +18,5 @@ public class StarterConfig {
                 new NamedType(RequestMessageBluecode.class, "bluecode")
         );
     }
+
 }
