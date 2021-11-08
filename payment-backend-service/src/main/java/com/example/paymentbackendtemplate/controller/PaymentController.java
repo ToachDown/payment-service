@@ -32,14 +32,17 @@ public class PaymentController {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @PostMapping("/start-payment")
+    @GetMapping("/get-payment")
     public void startPayment() {
 
     }
 
-    @PatchMapping("/update-payment")
-    public void updatePayment() {
-
+    @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public RequestMessage updatePayment(@RequestBody final String jsonString) throws JsonProcessingException {
+        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
+        paymentRepository.save(requestMessage);
+        return requestMessage;
     }
 
     @PostMapping("/capture-payment")
@@ -47,9 +50,21 @@ public class PaymentController {
 
     }
 
-    @PostMapping(value = "/get-payment", produces = "application/json", consumes = "application/json" )
-    public List<RequestMessage> getCurrentPayment (@RequestBody final String jsonString) throws JsonProcessingException {
-        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
+    @ResponseBody
+    @GetMapping(value = "/get-all", produces = "application/json")
+    public List<RequestMessage> getAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/get-payment/{id}", produces = "application/json")
+    public RequestMessage getPayment(@PathVariable Long id) {
+        return paymentRepository.findById(id).get();
+    }
+
+    @PostMapping(value = "/start-payment", produces = "application/json", consumes = "application/json" )
+    public List<RequestMessage> startPayment (@RequestBody final RequestMessage requestMessage) {
+//        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
         paymentRepository.save(requestMessage);
         return paymentRepository.findAll();
     }

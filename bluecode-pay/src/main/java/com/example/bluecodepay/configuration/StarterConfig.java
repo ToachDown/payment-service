@@ -2,6 +2,8 @@ package com.example.bluecodepay.configuration;
 
 import com.example.bluecodepay.model.RequestMessageBluecode;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
+import feign.Contract;
+import feign.Feign;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

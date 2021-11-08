@@ -26,20 +26,41 @@ class PaymentBackendTemplateApplicationTests {
 
 
     @Test
-    void contextLoads() {
-        final RequestMessage requestMessage = new RequestMessageBluecode("test", "test_bar", 12);
-        System.out.println(requestFacade.getAnswer(requestMessage));
+    void contextLoads() throws JsonProcessingException {
+        final RequestMessage requestMessage = new RequestMessageBluecode(
+                "description_test",
+                "test_slip",
+                "my_terminal",
+                "ecommerce",
+                "scan",
+                "4334g4g",
+                "9903049950293",
+                10,
+                150
+        );
+        System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMessage));
+        System.out.println(requestFacade.startTransaction(requestMessage));
     }
 
     @Test
     void getObjMapperWithSubTypes () throws JsonProcessingException {
-        final RequestMessageBluecode requestMess = new RequestMessageBluecode("test_t", "test_bar", 12);
+        final RequestMessageBluecode requestMess = new RequestMessageBluecode(
+                "description_test",
+                "test_slip",
+                "my_terminal",
+                "ecommerce",
+                "scan",
+                "4334g4g",
+                "9903049950293",
+                10,
+                122
+        );
         final String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMess);
         System.out.println(json);
         RequestMessage requestMessage = objectMapper.readValue(json, RequestMessage.class);
         paymentRepo.save(requestMessage);
         paymentRepo.findAll().forEach(System.out::println);
-        System.out.println(requestFacade.getAnswer(requestMessage));
+        System.out.println(requestFacade.startTransaction(requestMessage));
     }
 
 

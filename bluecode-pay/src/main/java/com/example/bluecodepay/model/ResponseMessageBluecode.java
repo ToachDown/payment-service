@@ -1,16 +1,20 @@
 package com.example.bluecodepay.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 import template.model.ResponseMessage;
 
-@JsonAppend
+@Getter
+@Setter
 public class ResponseMessageBluecode extends ResponseMessage {
 
-    @JsonView
-    private String mess;
+    private String result;
+//    private ResponseDetails paymentDetails;
 
-    public ResponseMessageBluecode() {
-        this.mess = "you winner";
+    @JsonCreator
+    public ResponseMessageBluecode(@JsonProperty("result") String result) {
+        this.result = result;
     }
 }

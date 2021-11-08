@@ -17,7 +17,15 @@ public class RequestFacade {
         this.paymentResolverMap = paymentResolverMap;
     }
 
-    public ResponseMessage getAnswer (RequestMessage request) {
-        return paymentResolverMap.get(request.getType()).getAnswer(request);
+    public ResponseMessage startTransaction (RequestMessage request) {
+        return paymentResolverMap.get(request.getType()).startTransaction(request);
+    }
+
+    public ResponseMessage updatePayment (RequestMessage request) {
+        return paymentResolverMap.get(request.getType()).updatePayment(request);
+    }
+
+    public ResponseMessage captureTransaction (RequestMessage request) {
+        return paymentResolverMap.get(request.getType()).captureTransaction(request);
     }
 }
