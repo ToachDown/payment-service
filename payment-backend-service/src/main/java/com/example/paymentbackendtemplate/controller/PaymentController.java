@@ -1,41 +1,32 @@
 package com.example.paymentbackendtemplate.controller;
 
+import com.example.bluecodepay.model.response.ResponseMessageBluecode;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import com.example.paymentbackendtemplate.service.RequestFacade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.jfr.ContentType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import template.model.RequestMessage;
-import template.model.ResponseMessage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
 @Getter
 @Setter
+@AllArgsConstructor
 @RequestMapping("api")
 public class PaymentController {
 
-    @Autowired
     private RequestFacade requestFacade;
 
-    @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
     private PaymentRepository paymentRepository;
-
-    @GetMapping("/get-payment")
-    public void startPayment() {
-
-    }
 
     @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
     @ResponseBody
@@ -46,8 +37,9 @@ public class PaymentController {
     }
 
     @PostMapping("/capture-payment")
-    public void completePayment() {
-
+    public void completePayment(@RequestBody ResponseMessageBluecode responseMessage) throws JsonProcessingException {
+        String re = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseMessage);
+        System.out.println(re);
     }
 
     @ResponseBody

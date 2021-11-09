@@ -1,6 +1,7 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +14,11 @@ import template.model.ResponseMessage;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PaymentService {
 
-    @Autowired
     private RequestFacade requestFacade;
 
-    @Autowired
     private PaymentRepository paymentRepository;
 
     public ResponseMessage beginTransaction (RequestMessage request) {
@@ -37,6 +37,11 @@ public class PaymentService {
         }
         paymentRepository.save(request);
         return responseMessage;
+    }
+
+    public RequestMessage getPayment () {
+        ResponseMessage responseMessage = requestFacade.statusTransaction(null);
+        return null;
     }
 
     public ResponseMessage capturePayment (RequestMessage request) {

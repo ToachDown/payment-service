@@ -17,15 +17,20 @@ public class RequestFacade {
         this.paymentResolverMap = paymentResolverMap;
     }
 
-    public ResponseMessage startTransaction (RequestMessage request) {
+    public ResponseMessage startTransaction(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).startTransaction(request);
     }
 
-    public ResponseMessage updatePayment (RequestMessage request) {
+    public ResponseMessage updatePayment(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).updatePayment(request);
     }
 
-    public ResponseMessage captureTransaction (RequestMessage request) {
+    public ResponseMessage captureTransaction(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).captureTransaction(request);
+    }
+
+    public ResponseMessage statusTransaction(RequestMessage request) {
+    //    return paymentResolverMap.get(request.getType()).statusTransaction(request.toString());
+        return null;
     }
 }

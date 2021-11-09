@@ -1,8 +1,8 @@
 package com.example.bluecodepay.service;
 
 import com.example.bluecodepay.controller.FeignBluecodeClient;
-import com.example.bluecodepay.model.RequestMessageBluecode;
-import com.example.bluecodepay.model.ResponseMessageBluecode;
+import com.example.bluecodepay.model.request.RequestMessageBluecode;
+import com.example.bluecodepay.model.response.ResponseMessageBluecode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,14 @@ public class PaymentResolverImpl implements PaymentResolver<RequestMessageBlueco
 
     @Override
     public ResponseMessageBluecode captureTransaction(RequestMessageBluecode request) {
- //       ResponseMessage responseMessage = feignBluecodeClient.capturePayment(request);
+//        ResponseMessage responseMessage = feignBluecodeClient.capturePayment(request);
         return new ResponseMessageBluecode("CANCEL");
+    }
+
+    @Override
+    public ResponseMessageBluecode statusTransaction(String transactionId) {
+ //       ResponseMessage responseMessage = feignBluecodeClient.statusPayment(transactionId);
+        return new ResponseMessageBluecode("STATUS");
     }
 
     @Override
