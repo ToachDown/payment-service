@@ -1,73 +1,78 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.bluecodepay.model.response.ResponseMessageBluecode;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import com.example.paymentbackendtemplate.service.RequestFacade;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.paymentbackendtemplate.service.PaymentService;
+import com.example.paymentbackendtemplate.service.TransformCommander;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import template.model.RefundMessage;
 import template.model.RequestMessage;
+import template.model.ResponseMessage;
+import template.model.TxIdMessage;
+import template.model.dto.PaymentDto;
+import template.model.dto.PaymentIdDto;
+import template.model.dto.RefundPaymentDto;
 
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 
 @RestController
 @Getter
 @Setter
 @AllArgsConstructor
+@Validated
 @RequestMapping("api")
 public class PaymentController {
 
-    private RequestFacade requestFacade;
+    private final TransformCommander transformCommander;
 
-    private ObjectMapper objectMapper;
+    private final PaymentService paymentService;
 
-    private PaymentRepository paymentRepository;
+    private final ObjectMapper objectMapper;
 
-    @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public RequestMessage updatePayment(@RequestBody final String jsonString) throws JsonProcessingException {
-        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
-        paymentRepository.save(requestMessage);
-        return requestMessage;
-    }
-
-    @PostMapping("/capture-payment")
-    public void completePayment(@RequestBody ResponseMessageBluecode responseMessage) throws JsonProcessingException {
-        String re = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseMessage);
-        System.out.println(re);
-    }
+    private final PaymentRepository paymentRepository;
 
     @ResponseBody
-    @GetMapping(value = "/get-all", produces = "application/json")
-    public List<RequestMessage> getAllPayments() {
-        return paymentRepository.findAll();
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/get-payment/{id}", produces = "application/json")
-    public RequestMessage getPayment(@PathVariable Long id) {
-        return paymentRepository.findById(id).get();
-    }
-
     @PostMapping(value = "/start-payment", produces = "application/json", consumes = "application/json" )
-    public List<RequestMessage> startPayment (@RequestBody final RequestMessage requestMessage) {
-//        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
-        paymentRepository.save(requestMessage);
-        return paymentRepository.findAll();
+    public ResponseMessage startPayment (@RequestBody @Valid @NotNull final PaymentDto init) {
+        final RequestMessage requestMessage = transformCommander.transformPaymentDto(init);
+        return paymentService.beginTransaction(requestMessage);
+    }
+
+    @ResponseBody
+    @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
+    public ResponseMessage updatePayment(@RequestBody final PaymentDto patch){
+        final RequestMessage requestMessage = transformCommander.transformPaymentDto(patch);
+        return paymentService.updatePayment(requestMessage);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/capture-payment", consumes = "application/json", produces = "application/json")
+    public void completePayment(@RequestBody @Valid @NotNull final PaymentDto payment) {
+
+
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/get-payment", produces = "application/json")
+    public RequestMessage getPayment(@RequestBody @Valid @NotNull final PaymentIdDto txIdDto) {
+        final TxIdMessage txIdMessage = transformCommander.transformPaymentIdDto(txIdDto);
+        return null;
     }
 
     @PostMapping("/cancel")
-    public void cancelPayment () {
-
+    public void cancelPayment (@RequestBody @Valid @NotNull final PaymentIdDto txIdDto) {
+        final TxIdMessage txIdMessage = transformCommander.transformPaymentIdDto(txIdDto);
     }
 
     @PostMapping("/refund")
-    public void refundPayment () {
-
+    public ResponseMessage refundPayment (@RequestBody @Valid @NotNull final RefundPaymentDto refund) {
+        final RefundMessage refundMessage = transformCommander.transformRefundDto(refund);
+        return null;
     }
 }

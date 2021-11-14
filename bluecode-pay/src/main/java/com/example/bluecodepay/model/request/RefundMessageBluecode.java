@@ -1,23 +1,22 @@
 package com.example.bluecodepay.model.request;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import template.model.RefundRequest;
+import template.model.RefundMessage;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
-public class RefundBluecodeRequest extends RefundRequest {
+public class RefundMessageBluecode extends RefundMessage {
 
-    @JsonProperty("acquirer_tx_id")
-    private String acquirerTxId;
     @JsonProperty("amount")
-    private int amount;
+    private Integer amount;
     @JsonProperty("reason")
     private String reason;
-
+    @JsonProperty("acquirer_tx_id")
+    private String acquirerTransactionId;
 }

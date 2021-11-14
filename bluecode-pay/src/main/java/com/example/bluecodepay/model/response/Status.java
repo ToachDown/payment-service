@@ -1,17 +1,15 @@
 package com.example.bluecodepay.model.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class StatusDetail extends ResponseMessageBluecode{
+@SuperBuilder(toBuilder = true)
+public class Status {
 
     @JsonProperty("merchant_tx_id")
     private String merchantTxId;

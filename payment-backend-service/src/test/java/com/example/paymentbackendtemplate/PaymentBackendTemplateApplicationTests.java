@@ -2,9 +2,8 @@ package com.example.paymentbackendtemplate;
 
 import com.example.bluecodepay.model.request.RequestMessageBluecode;
 import com.example.bluecodepay.model.response.ResponseMessageBluecode;
-import com.example.bluecodepay.model.response.StatusDetail;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import com.example.paymentbackendtemplate.service.RequestFacade;
+import com.example.paymentbackendtemplate.service.RequestCommander;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import template.model.ResponseMessage;
 class PaymentBackendTemplateApplicationTests {
 
     @Autowired
-    private RequestFacade requestFacade;
+    private RequestCommander requestCommander;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -33,7 +32,7 @@ class PaymentBackendTemplateApplicationTests {
     void contextLoads() throws JsonProcessingException {
         final RequestMessage requestMessage = new RequestMessageBluecode();
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMessage));
-        System.out.println(requestFacade.startTransaction(requestMessage));
+        System.out.println(requestCommander.startTransaction(requestMessage));
     }
 
     @Test
@@ -44,17 +43,13 @@ class PaymentBackendTemplateApplicationTests {
         RequestMessage requestMessage = objectMapper.readValue(json, RequestMessage.class);
         paymentRepo.save(requestMessage);
         paymentRepo.findAll().forEach(System.out::println);
-        System.out.println(requestFacade.startTransaction(requestMessage));
+        System.out.println(requestCommander.startTransaction(requestMessage));
     }
 
     @Test
     void ResponseTest () throws JsonProcessingException {
-        StatusDetail statusDetail = new StatusDetail(
-                "test_tx_id",
-                134,
-                111
-        );
-        ResponseMessage responseMessage = new ResponseMessageBluecode("OK");
+ //       ResponseBluecodeProcessing statusDetail = new ResponseBluecodeProcessing();
+        ResponseMessage responseMessage = new ResponseMessageBluecode();
         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseMessage);
         System.out.println(json);
         System.out.println(objectMapper.readValue(json, ResponseMessage.class));

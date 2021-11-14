@@ -1,5 +1,8 @@
 package com.example.bluecodepay.model.request;
 
+import com.example.bluecodepay.model.enums.Currency;
+import com.example.bluecodepay.model.enums.Scheme;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
@@ -14,17 +17,15 @@ import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@JsonTypeName("requestBluecode")
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
 public class RequestMessageBluecode extends RequestMessage {
 
     @JsonProperty("merchant_tx_id")
     private String merchantTxId;
     @JsonProperty("scheme")
-    private String scheme;
+    private Scheme scheme;
     @JsonProperty("slip_date_time")
     private LocalDate slipDateTime;
     @JsonProperty("slip_note")
@@ -34,7 +35,7 @@ public class RequestMessageBluecode extends RequestMessage {
     @JsonProperty("branch_ext_id")
     private String branchExtId;
     @JsonProperty("currency")
-    private String currency;
+    private Currency currency;
     @JsonProperty("slip")
     private String slip;
     @JsonProperty("source")
@@ -53,9 +54,5 @@ public class RequestMessageBluecode extends RequestMessage {
     private int discountAmount;
     @JsonProperty("requested_amount")
     private int requestedAmount;
-
-    public int calculatingClearAmount (int full, int tip, int discount) {
-        return (full - discount) + (int) ((full - discount) * ( tip/((float) 100)));
-    }
 
 }

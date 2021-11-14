@@ -8,7 +8,5 @@ public interface PaymentResolver<T, R> {
 
     R captureTransaction(T request);
 
-    R statusTransaction(String transactionId);
-
     String getType();
 }

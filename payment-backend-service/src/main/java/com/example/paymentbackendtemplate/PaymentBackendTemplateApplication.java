@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication()
 @EnableJpaRepositories
-@EnableFeignClients
 public class PaymentBackendTemplateApplication {
 
     public static void main(String[] args) {

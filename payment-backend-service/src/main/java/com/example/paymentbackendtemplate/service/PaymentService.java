@@ -1,28 +1,19 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
 
 @Service
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PaymentService {
 
-    private RequestFacade requestFacade;
+    private final RequestCommander requestCommander;
 
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
     public ResponseMessage beginTransaction (RequestMessage request) {
-        ResponseMessage responseMessage = requestFacade.startTransaction(request);
+        ResponseMessage responseMessage = requestCommander.startTransaction(request);
         if(responseMessage == null) {
             throw new IllegalArgumentException("invalid request data or service is not available");
         }
@@ -31,25 +22,30 @@ public class PaymentService {
     }
 
     public ResponseMessage updatePayment (RequestMessage request) {
-        ResponseMessage responseMessage = requestFacade.updatePayment(request);
+        ResponseMessage responseMessage = requestCommander.updatePayment(request);
         if(responseMessage == null) {
             throw new IllegalArgumentException("invalid request data or service is not available");
         }
-        paymentRepository.save(request);
+        paymentRepository.saveAndFlush(request);
         return responseMessage;
     }
 
     public RequestMessage getPayment () {
-        ResponseMessage responseMessage = requestFacade.statusTransaction(null);
+        ResponseMessage responseMessage = requestCommander.statusTransaction(null);
         return null;
     }
 
     public ResponseMessage capturePayment (RequestMessage request) {
-        ResponseMessage responseMessage = requestFacade.captureTransaction(request);
+        ResponseMessage responseMessage = requestCommander.captureTransaction(request);
         if(responseMessage == null) {
             throw new IllegalArgumentException("invalid request data or service is not available");
         }
         paymentRepository.save(request);
         return responseMessage;
+    }
+
+    public PaymentService(RequestCommander requestCommander, PaymentRepository paymentRepository) {
+        this.requestCommander = requestCommander;
+        this.paymentRepository = paymentRepository;
     }
 }

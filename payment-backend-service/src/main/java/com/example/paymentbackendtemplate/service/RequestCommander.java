@@ -8,12 +8,12 @@ import template.model.ResponseMessage;
 import java.util.Map;
 
 @Component
-public class RequestFacade {
+public class RequestCommander {
 
     private final Map<String, PaymentResolver<RequestMessage, ResponseMessage>> paymentResolverMap;
 
     @SuppressWarnings("SpringJavaInjectonPointsAutowiringInspection")
-    public RequestFacade(final Map<String, PaymentResolver<RequestMessage, ResponseMessage>> paymentResolverMap) {
+    public RequestCommander(final Map<String, PaymentResolver<RequestMessage, ResponseMessage>> paymentResolverMap) {
         this.paymentResolverMap = paymentResolverMap;
     }
 
