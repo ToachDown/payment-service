@@ -6,10 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 @Data
 @NoArgsConstructor
 @SuperBuilder(setterPrefix = "with", toBuilder = true)

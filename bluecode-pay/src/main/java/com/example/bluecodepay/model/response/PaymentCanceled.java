@@ -1,18 +1,20 @@
-package com.example.bluecodepay.model.request;
+package com.example.bluecodepay.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import template.model.TxIdMessage;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@SuperBuilder(setterPrefix = "with", toBuilder = true)
-public class TxIdMessageBluecode extends TxIdMessage {
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true, setterPrefix = "with")
+public class PaymentCanceled extends Payment{
 
     @JsonProperty("merchant_tx_id")
-    private String TransactionId;
+    private String merchantIxId;
+
 }

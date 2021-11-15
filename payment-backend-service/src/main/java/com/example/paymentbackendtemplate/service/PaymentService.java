@@ -1,11 +1,15 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
+import lombok.Data;
 import org.springframework.stereotype.Service;
+import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
+import template.model.TransactionMessage;
 
 @Service
+@Data
 public class PaymentService {
 
     private final RequestCommander requestCommander;
@@ -30,9 +34,28 @@ public class PaymentService {
         return responseMessage;
     }
 
-    public RequestMessage getPayment () {
-        ResponseMessage responseMessage = requestCommander.statusTransaction(null);
-        return null;
+    public ResponseMessage refundPayment(RefundMessage request) {
+        ResponseMessage responseMessage = requestCommander.refundPayment(request);
+        if(responseMessage == null) {
+            throw new IllegalArgumentException("invalid request data or service is not available");
+        }
+        return responseMessage;
+    }
+
+    public ResponseMessage getPayment (TransactionMessage request) {
+        ResponseMessage responseMessage = requestCommander.statusTransaction(request);
+        if(responseMessage == null) {
+            throw new IllegalArgumentException("invalid request data or service is not available");
+        }
+        return responseMessage;
+    }
+
+    public ResponseMessage cancelPayment (TransactionMessage request) {
+        ResponseMessage responseMessage = requestCommander.cancelTransaction(request);
+        if(responseMessage == null) {
+            throw new IllegalArgumentException("invalid request data or service is not available");
+        }
+        return responseMessage;
     }
 
     public ResponseMessage capturePayment (RequestMessage request) {
@@ -44,8 +67,4 @@ public class PaymentService {
         return responseMessage;
     }
 
-    public PaymentService(RequestCommander requestCommander, PaymentRepository paymentRepository) {
-        this.requestCommander = requestCommander;
-        this.paymentRepository = paymentRepository;
-    }
 }

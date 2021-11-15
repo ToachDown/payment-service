@@ -3,17 +3,14 @@ package com.example.bluecodepay.service;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.request.RefundMessageBluecode;
 import com.example.bluecodepay.model.request.RequestMessageBluecode;
-import com.example.bluecodepay.model.request.TxIdMessageBluecode;
+import com.example.bluecodepay.model.request.TransactionMessageBluecode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import template.model.TxIdMessage;
 import template.model.dto.PaymentDto;
-import template.model.dto.PaymentIdDto;
+import template.model.dto.TransactionDto;
 import template.model.dto.RefundPaymentDto;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -48,8 +45,8 @@ public class TransformServiceBluecode {
         return refund;
     }
 
-    public TxIdMessageBluecode transformTxIdMessage(PaymentIdDto dto) {
-        final TxIdMessageBluecode txIdMessage = new TxIdMessageBluecode();
+    public TransactionMessageBluecode transformTransactionMessage(TransactionDto dto) {
+        final TransactionMessageBluecode txIdMessage = new TransactionMessageBluecode();
         txIdMessage.setType(dto.getApi());
         txIdMessage.setTransactionId(dto.getTransactionId());
         return txIdMessage;

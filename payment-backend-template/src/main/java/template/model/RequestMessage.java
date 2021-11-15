@@ -1,10 +1,11 @@
 package template.model;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 
 

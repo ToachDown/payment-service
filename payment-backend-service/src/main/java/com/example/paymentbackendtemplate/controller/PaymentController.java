@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
-import template.model.TxIdMessage;
+import template.model.TransactionMessage;
 import template.model.dto.PaymentDto;
-import template.model.dto.PaymentIdDto;
 import template.model.dto.RefundPaymentDto;
+import template.model.dto.TransactionDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -53,26 +53,27 @@ public class PaymentController {
 
     @ResponseBody
     @PostMapping(value = "/capture-payment", consumes = "application/json", produces = "application/json")
-    public void completePayment(@RequestBody @Valid @NotNull final PaymentDto payment) {
-
-
+    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto payment) {
+        final RequestMessage requestMessage = transformCommander.transformPaymentDto(payment);
+        return paymentService.capturePayment(requestMessage);
     }
 
     @ResponseBody
     @GetMapping(value = "/get-payment", produces = "application/json")
-    public RequestMessage getPayment(@RequestBody @Valid @NotNull final PaymentIdDto txIdDto) {
-        final TxIdMessage txIdMessage = transformCommander.transformPaymentIdDto(txIdDto);
-        return null;
+    public ResponseMessage getPayment(@RequestBody @Valid @NotNull final TransactionDto txIdDto) {
+        final TransactionMessage transactionMessage = transformCommander.transformPaymentIdDto(txIdDto);
+        return paymentService.getPayment(transactionMessage);
     }
 
     @PostMapping("/cancel")
-    public void cancelPayment (@RequestBody @Valid @NotNull final PaymentIdDto txIdDto) {
-        final TxIdMessage txIdMessage = transformCommander.transformPaymentIdDto(txIdDto);
+    public ResponseMessage cancelPayment (@RequestBody @Valid @NotNull final TransactionDto txIdDto) {
+        final TransactionMessage transactionMessage = transformCommander.transformPaymentIdDto(txIdDto);
+        return paymentService.cancelPayment(transactionMessage);
     }
 
     @PostMapping("/refund")
     public ResponseMessage refundPayment (@RequestBody @Valid @NotNull final RefundPaymentDto refund) {
         final RefundMessage refundMessage = transformCommander.transformRefundDto(refund);
-        return null;
+        return paymentService.refundPayment(refundMessage);
     }
 }

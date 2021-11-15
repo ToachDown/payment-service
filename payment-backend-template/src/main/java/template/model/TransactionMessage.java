@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public class TxIdMessage {
+public class TransactionMessage {
 
     @JsonProperty("type")
     private String type;

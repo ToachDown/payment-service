@@ -1,19 +1,25 @@
 package template.model.dto;
 
 import lombok.Data;
-import lombok.NonNull;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 public class RefundPaymentDto {
 
-    @NonNull
+    @NotNull
+    @Size(max = 128, min =3)
     private String api;
 
-    @NonNull
+    @NotNull
     private String acquirerTransactionId;
 
-    @NonNull
+    @NotNull
+    @Min(0)
     private Integer amount;
 
+    @Size(max = 1024)
     private String reason;
 }

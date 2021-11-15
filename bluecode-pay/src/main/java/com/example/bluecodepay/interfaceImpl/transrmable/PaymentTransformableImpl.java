@@ -1,15 +1,15 @@
-package com.example.bluecodepay.interfaceImpl;
+package com.example.bluecodepay.interfaceImpl.transrmable;
 
 import com.example.bluecodepay.model.request.RequestMessageBluecode;
 import com.example.bluecodepay.service.TransformServiceBluecode;
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import template.interfaces.PaymentTransformable;
+import template.interfaces.transformable.PaymentTransformable;
 import template.model.dto.PaymentDto;
 
 @Data
 @Component
-public class PaymentTransformImpl implements PaymentTransformable<RequestMessageBluecode, PaymentDto> {
+public class PaymentTransformableImpl implements PaymentTransformable<RequestMessageBluecode, PaymentDto> {
 
     private final TransformServiceBluecode transformServiceBluecode;
 

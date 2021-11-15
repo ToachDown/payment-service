@@ -5,6 +5,8 @@ import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.State;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,29 +14,18 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "state")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PaymentFailure.class, name = "FAILURE"),
+        @JsonSubTypes.Type(value = PaymentDeclined.class, name = "DECLINED"),
+        @JsonSubTypes.Type(value = PaymentApproved.class, name = "APPROVED"),
+        @JsonSubTypes.Type(value = PaymentCanceled.class, name = "CANCELLED")
+})
 public class Payment {
 
     @JsonProperty("state")
     private State state;
-    @JsonProperty("merchant_tx_id")
-    private String merchantIxId;
-    @JsonProperty("code")
-    private Code code;
-    @JsonProperty("acquirer_tx_id")
-    private String acquirerTxId;
-    @JsonProperty("scheme")
-    private Scheme scheme;
-    @JsonProperty("currency")
-    private Currency currency;
-    @JsonProperty("end_to_end_id")
-    private String endToEndId;
-    @JsonProperty("slip_note")
-    private String slipNote;
-    @JsonProperty("total_amount")
-    private int totalAmount;
-    @JsonProperty("requested_amount")
-    private int requestedAmount;
-    @JsonProperty("consumer_tip_amount")
-    private int consumerTipAmount;
+
 }

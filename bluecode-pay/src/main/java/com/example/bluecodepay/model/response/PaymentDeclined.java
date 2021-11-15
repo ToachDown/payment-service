@@ -1,7 +1,6 @@
 package com.example.bluecodepay.model.response;
 
-import com.example.bluecodepay.model.enums.Result;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.example.bluecodepay.model.enums.Code;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,14 +10,14 @@ import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class ResponseBluecodeOk extends ResponseMessageBluecode{
+public class PaymentDeclined extends Payment{
 
-    @JsonProperty("payment")
-    private Payment payment;
-    @JsonProperty("instant_refund")
-    private InstantRefund instantRefund;
-    @JsonProperty("message")
-    private String message;
+    @JsonProperty("code")
+    private Code code;
+    @JsonProperty("acquirer_tx_id")
+    private String acquirerTxId;
 
 }

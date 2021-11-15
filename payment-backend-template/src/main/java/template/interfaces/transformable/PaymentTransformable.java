@@ -1,4 +1,4 @@
-package template.interfaces;
+package template.interfaces.transformable;
 
 public interface PaymentTransformable<T, K> {
 

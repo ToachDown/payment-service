@@ -1,12 +1,12 @@
 package com.example.paymentbackendtemplate.service;
 
 import org.springframework.stereotype.Component;
-import template.interfaces.PaymentTransformable;
+import template.interfaces.transformable.PaymentTransformable;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
-import template.model.TxIdMessage;
+import template.model.TransactionMessage;
 import template.model.dto.PaymentDto;
-import template.model.dto.PaymentIdDto;
+import template.model.dto.TransactionDto;
 import template.model.dto.RefundPaymentDto;
 
 import java.util.Map;
@@ -16,12 +16,12 @@ public class TransformCommander {
 
     private final Map<String, PaymentTransformable<RequestMessage, PaymentDto>> paymentTransformMap;
     private final Map<String, PaymentTransformable<RefundMessage, RefundPaymentDto>> refundTransformMap;
-    private final Map<String, PaymentTransformable<TxIdMessage, PaymentIdDto>> txIdTransformMap;
+    private final Map<String, PaymentTransformable<TransactionMessage, TransactionDto>> txIdTransformMap;
 
     @SuppressWarnings("SpringJavaInjectonPointsAutowiringInspection")
     public TransformCommander(Map<String, PaymentTransformable<RequestMessage, PaymentDto>> paymentTransformMap,
                               Map<String, PaymentTransformable<RefundMessage, RefundPaymentDto>> refundTransformMap,
-                              Map<String, PaymentTransformable<TxIdMessage, PaymentIdDto>> txIdTransformMap) {
+                              Map<String, PaymentTransformable<TransactionMessage, TransactionDto>> txIdTransformMap) {
         this.paymentTransformMap = paymentTransformMap;
         this.refundTransformMap = refundTransformMap;
         this.txIdTransformMap = txIdTransformMap;
@@ -31,7 +31,7 @@ public class TransformCommander {
         return refundTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
-    public TxIdMessage transformPaymentIdDto(PaymentIdDto dto) {
+    public TransactionMessage transformPaymentIdDto(TransactionDto dto) {
         return txIdTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
