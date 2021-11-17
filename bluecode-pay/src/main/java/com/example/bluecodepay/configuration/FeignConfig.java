@@ -8,18 +8,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableFeignClients(basePackages = {"com.example.bluecodepay.controller"})
+@EnableFeignClients(basePackages = {"com.example.bluecodepay.client"})
 @ComponentScan("com.example.bluecodepay")
 public class FeignConfig {
 
-    @Value("${bluecode.basic.auth.username}")
-    private String username;
-
-    @Value("${bluecode.basic.auth.password}")
-    private String password;
-
     @Bean
-    public BasicAuthRequestInterceptor basicAuthRequestInterceptor() {
+    public BasicAuthRequestInterceptor basicAuthRequestInterceptor(@Value("${bluecode.basic.auth.password}") final String password,
+                                                                   @Value("${bluecode.basic.auth.username}") final String username) {
         return new BasicAuthRequestInterceptor(username, password);
     }
 }

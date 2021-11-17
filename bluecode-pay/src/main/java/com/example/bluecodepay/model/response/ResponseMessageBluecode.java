@@ -1,17 +1,18 @@
 package com.example.bluecodepay.model.response;
 
 import com.example.bluecodepay.model.enums.Result;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import template.model.ResponseMessage;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "result")
 @JsonSubTypes({
@@ -19,9 +20,12 @@ import template.model.ResponseMessage;
         @JsonSubTypes.Type(value = ResponseBluecodeProcessing.class, name = "PROCESSING"),
         @JsonSubTypes.Type(value = ResponseBluecodeError.class, name = "ERROR")
 })
-public class ResponseMessageBluecode extends ResponseMessage {
+public abstract class ResponseMessageBluecode extends ResponseMessage {
 
     @JsonProperty("result")
+    @Enumerated(EnumType.STRING)
     private Result result;
+    @JsonProperty("type")
+    private final String type = "bluecode";
 
 }

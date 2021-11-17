@@ -14,7 +14,7 @@ public class RefundPaymentDto {
     private String api;
 
     @NotNull
-    private String acquirerTransactionId;
+    private String acquirerId;
 
     @NotNull
     @Min(0)

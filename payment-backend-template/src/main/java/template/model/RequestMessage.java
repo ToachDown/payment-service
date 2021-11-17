@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public class RequestMessage {
+public abstract class RequestMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

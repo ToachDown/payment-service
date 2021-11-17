@@ -3,6 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <groupId>org.example</groupId>
     <artifactId>payment-API</artifactId>
@@ -31,6 +37,7 @@
         <httpClient.version>11.7</httpClient.version>
         <validation.api.version>2.0.1.Final</validation.api.version>
         <springfox.boot.starter>3.0.0</springfox.boot.starter>
+        <swagger>1.5.2</swagger>
 <!--        DataBase dependency version-->
         <liquibase.core>4.3.5</liquibase.core>
         <persistense.api.version>2.2</persistense.api.version>
@@ -155,10 +162,15 @@
 
 
 <!--            Swagger-->
+<!--            <dependency>-->
+<!--                <groupId>io.springfox</groupId>-->
+<!--                <artifactId>springfox-boot-starter</artifactId>-->
+<!--                <version>${springfox.boot.starter}</version>-->
+<!--            </dependency>-->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox.boot.starter}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${swagger}</version>
             </dependency>
 
 <!--            validation-->

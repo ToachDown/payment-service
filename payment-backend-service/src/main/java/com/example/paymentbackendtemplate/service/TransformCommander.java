@@ -1,7 +1,7 @@
 package com.example.paymentbackendtemplate.service;
 
 import org.springframework.stereotype.Component;
-import template.interfaces.transformable.PaymentTransformable;
+import template.interfaces.PaymentTransformable;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.TransactionMessage;

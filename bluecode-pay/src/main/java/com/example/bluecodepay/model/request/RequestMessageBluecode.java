@@ -2,7 +2,9 @@ package com.example.bluecodepay.model.request;
 
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
+import com.example.bluecodepay.model.enums.State;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
@@ -13,18 +15,22 @@ import lombok.experimental.SuperBuilder;
 import template.model.RequestMessage;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
 public class RequestMessageBluecode extends RequestMessage {
 
     @JsonProperty("merchant_tx_id")
     private String merchantTxId;
     @JsonProperty("scheme")
+    @Enumerated(EnumType.STRING)
     private Scheme scheme;
     @JsonProperty("slip_date_time")
     private LocalDate slipDateTime;
@@ -35,6 +41,7 @@ public class RequestMessageBluecode extends RequestMessage {
     @JsonProperty("branch_ext_id")
     private String branchExtId;
     @JsonProperty("currency")
+    @Enumerated(EnumType.STRING)
     private Currency currency;
     @JsonProperty("slip")
     private String slip;
@@ -48,11 +55,13 @@ public class RequestMessageBluecode extends RequestMessage {
     private String endToEndId;
     @JsonProperty("purchase_amount")
     private int purchaseAmount;
-    @JsonProperty("tip_amount")
+    @JsonProperty("consumer_tip_amount")
     private int tipAmount;
     @JsonProperty("discount_amount")
     private int discountAmount;
     @JsonProperty("requested_amount")
     private int requestedAmount;
+    @JsonIgnore
+    private State state;
 
 }

@@ -1,4 +1,4 @@
-package com.example.bluecodepay.controller;
+package com.example.bluecodepay.client;
 
 import com.example.bluecodepay.model.request.RefundMessageBluecode;
 import com.example.bluecodepay.model.request.RequestMessageBluecode;

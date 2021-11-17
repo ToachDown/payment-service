@@ -3,6 +3,9 @@ package com.example.bluecodepay.model.response;
 import com.example.bluecodepay.model.enums.Code;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
+import com.example.bluecodepay.model.enums.State;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +17,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
 public class PaymentApproved extends Payment {
 
@@ -37,4 +41,8 @@ public class PaymentApproved extends Payment {
     private int requestedAmount;
     @JsonProperty("consumer_tip_amount")
     private int consumerTipAmount;
+    @JsonProperty("merchant_callback_url")
+    private String merchantCallbackUrl;
+    @JsonProperty("state")
+    private final State state = State.APPROVED;
 }

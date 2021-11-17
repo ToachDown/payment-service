@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+   com.example.bluecodepay.configuration.BluecodeSubTypesConfig,\
+   com.example.bluecodepay.configuration.FeignConfig,\
+   com.example.bluecodepay.configuration.ImplementationConfig

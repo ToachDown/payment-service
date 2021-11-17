@@ -49,10 +49,10 @@ class PaymentBackendTemplateApplicationTests {
     @Test
     void ResponseTest () throws JsonProcessingException {
  //       ResponseBluecodeProcessing statusDetail = new ResponseBluecodeProcessing();
-        ResponseMessage responseMessage = new ResponseMessageBluecode();
-        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseMessage);
-        System.out.println(json);
-        System.out.println(objectMapper.readValue(json, ResponseMessage.class));
+ //       ResponseMessage responseMessage = new ResponseMessageBluecode();
+//        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseMessage);
+//        System.out.println(json);
+//        System.out.println(objectMapper.readValue(json, ResponseMessage.class));
     }
 
 

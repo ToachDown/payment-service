@@ -1,70 +1,74 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import lombok.Data;
+import org.springframework.boot.web.server.WebServerException;
 import org.springframework.stereotype.Service;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
 import template.model.TransactionMessage;
+import template.model.dto.PaymentDto;
+import template.model.dto.RefundPaymentDto;
+import template.model.dto.TransactionDto;
 
 @Service
-@Data
 public class PaymentService {
 
     private final RequestCommander requestCommander;
 
+    private final TransformCommander transformCommander;
+
     private final PaymentRepository paymentRepository;
 
-    public ResponseMessage beginTransaction (RequestMessage request) {
-        ResponseMessage responseMessage = requestCommander.startTransaction(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
-        paymentRepository.save(request);
-        return responseMessage;
+    public PaymentService(RequestCommander requestCommander,
+                          TransformCommander transformCommander,
+                          PaymentRepository paymentRepository) {
+        this.requestCommander = requestCommander;
+        this.transformCommander = transformCommander;
+        this.paymentRepository = paymentRepository;
     }
 
-    public ResponseMessage updatePayment (RequestMessage request) {
-        ResponseMessage responseMessage = requestCommander.updatePayment(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
+    public ResponseMessage beginTransaction (PaymentDto dto) {
+        final RequestMessage request = transformCommander.transformPaymentDto(dto);
+        final ResponseMessage response = requestCommander.startTransaction(request);
+        paymentRepository.save(request);
+        return response;
+    }
+
+    public ResponseMessage updatePayment (PaymentDto dto) {
+        final RequestMessage request = transformCommander.transformPaymentDto(dto);
+        final ResponseMessage response = requestCommander.updatePayment(request);
         paymentRepository.saveAndFlush(request);
-        return responseMessage;
+        return response;
     }
 
-    public ResponseMessage refundPayment(RefundMessage request) {
-        ResponseMessage responseMessage = requestCommander.refundPayment(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
-        return responseMessage;
+    public ResponseMessage refundPayment(RefundPaymentDto dto) {
+        final RefundMessage request = transformCommander.transformRefundDto(dto);
+        final ResponseMessage response = requestCommander.refundPayment(request);
+        return response;
     }
 
-    public ResponseMessage getPayment (TransactionMessage request) {
-        ResponseMessage responseMessage = requestCommander.statusTransaction(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
-        return responseMessage;
+    public ResponseMessage getPayment (String paymentId, String api) {
+        final TransactionDto dto = TransactionDto.builder()
+                .withApi(api)
+                .withPaymentId(paymentId)
+                .build();
+        final TransactionMessage request = transformCommander.transformPaymentIdDto(dto);
+        final ResponseMessage response = requestCommander.statusTransaction(request);
+        return response;
     }
 
-    public ResponseMessage cancelPayment (TransactionMessage request) {
-        ResponseMessage responseMessage = requestCommander.cancelTransaction(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
-        return responseMessage;
+    public ResponseMessage cancelPayment (TransactionDto dto) {
+        final TransactionMessage request = transformCommander.transformPaymentIdDto(dto);
+        final ResponseMessage response = requestCommander.cancelTransaction(request);
+        return response;
     }
 
-    public ResponseMessage capturePayment (RequestMessage request) {
-        ResponseMessage responseMessage = requestCommander.captureTransaction(request);
-        if(responseMessage == null) {
-            throw new IllegalArgumentException("invalid request data or service is not available");
-        }
-        paymentRepository.save(request);
-        return responseMessage;
+    public ResponseMessage capturePayment (PaymentDto dto) {
+        final RequestMessage request = transformCommander.transformPaymentDto(dto);
+        final ResponseMessage response = requestCommander.captureTransaction(request);
+        paymentRepository.saveAndFlush(request);
+        return response;
     }
 
 }

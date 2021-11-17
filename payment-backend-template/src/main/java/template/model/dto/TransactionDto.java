@@ -1,11 +1,17 @@
 package template.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder(setterPrefix = "with", toBuilder = true)
 public class TransactionDto {
 
     @NotNull
@@ -13,5 +19,5 @@ public class TransactionDto {
     private String api;
 
     @NotNull
-    private String TransactionId;
+    private String PaymentId;
 }

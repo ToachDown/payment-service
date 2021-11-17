@@ -1,12 +1,8 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import com.example.paymentbackendtemplate.service.PaymentService;
 import com.example.paymentbackendtemplate.service.TransformCommander;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jdk.jfr.ContentType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import template.model.RefundMessage;
@@ -19,61 +15,53 @@ import template.model.dto.TransactionDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 
 @RestController
-@Getter
-@Setter
-@AllArgsConstructor
 @Validated
 @RequestMapping("api")
 public class PaymentController {
 
-    private final TransformCommander transformCommander;
-
     private final PaymentService paymentService;
 
-    private final ObjectMapper objectMapper;
-
-    private final PaymentRepository paymentRepository;
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @ResponseBody
     @PostMapping(value = "/start-payment", produces = "application/json", consumes = "application/json" )
     public ResponseMessage startPayment (@RequestBody @Valid @NotNull final PaymentDto init) {
-        final RequestMessage requestMessage = transformCommander.transformPaymentDto(init);
-        return paymentService.beginTransaction(requestMessage);
+        return paymentService.beginTransaction(init);
     }
 
     @ResponseBody
     @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
-    public ResponseMessage updatePayment(@RequestBody final PaymentDto patch){
-        final RequestMessage requestMessage = transformCommander.transformPaymentDto(patch);
-        return paymentService.updatePayment(requestMessage);
+    public ResponseMessage updatePayment(@RequestBody @Valid @NotNull final PaymentDto patch){
+        return paymentService.updatePayment(patch);
     }
 
     @ResponseBody
     @PostMapping(value = "/capture-payment", consumes = "application/json", produces = "application/json")
-    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto payment) {
-        final RequestMessage requestMessage = transformCommander.transformPaymentDto(payment);
-        return paymentService.capturePayment(requestMessage);
+    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto capture) {
+        return paymentService.capturePayment(capture);
     }
 
     @ResponseBody
-    @GetMapping(value = "/get-payment", produces = "application/json")
-    public ResponseMessage getPayment(@RequestBody @Valid @NotNull final TransactionDto txIdDto) {
-        final TransactionMessage transactionMessage = transformCommander.transformPaymentIdDto(txIdDto);
-        return paymentService.getPayment(transactionMessage);
+    @GetMapping(value = "/get-payment/{api}/{paymentId}", produces = "application/json")
+    public ResponseMessage getPayment(@PathVariable("api") @NotNull final String api, @PathVariable("paymentId") @NotNull final String paymentId) {
+        return paymentService.getPayment(paymentId, api);
     }
 
-    @PostMapping("/cancel")
-    public ResponseMessage cancelPayment (@RequestBody @Valid @NotNull final TransactionDto txIdDto) {
-        final TransactionMessage transactionMessage = transformCommander.transformPaymentIdDto(txIdDto);
-        return paymentService.cancelPayment(transactionMessage);
+    @ResponseBody
+    @PostMapping(value = "/cancel" , consumes = "application/json", produces = "application/json")
+    public ResponseMessage cancelPayment (@RequestBody @Valid @NotNull final TransactionDto cancel) {
+        return paymentService.cancelPayment(cancel);
     }
 
-    @PostMapping("/refund")
+    @ResponseBody
+    @PostMapping(value = "/refund" , produces = "application/json", consumes = "application/json" )
     public ResponseMessage refundPayment (@RequestBody @Valid @NotNull final RefundPaymentDto refund) {
-        final RefundMessage refundMessage = transformCommander.transformRefundDto(refund);
-        return paymentService.refundPayment(refundMessage);
+        return paymentService.refundPayment(refund);
     }
 }
