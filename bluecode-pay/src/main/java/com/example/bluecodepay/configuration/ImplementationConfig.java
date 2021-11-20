@@ -1,11 +1,11 @@
 package com.example.bluecodepay.configuration;
 
-import com.example.bluecodepay.model.request.RequestMessageBluecode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import template.interfaces.PaymentResolver;
 import template.interfaces.PaymentTransformable;
+import template.interfaces.PaymentUpdater;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
@@ -37,7 +37,7 @@ public class ImplementationConfig {
     }
 
     @Bean
-    public <T extends RequestMessage, R extends PaymentDto> Map<String, PaymentTransformable<T, R>> requestTransformMap (
+    public <T extends RequestMessage, R extends PaymentDto> Map<String, PaymentTransformable<T, R>> requestTransformMap(
             final List<PaymentTransformable<T, R>> requestTransforms) {
 
         return requestTransforms.stream()
@@ -45,7 +45,7 @@ public class ImplementationConfig {
     }
 
     @Bean
-    public <T extends RefundMessage, R extends RefundPaymentDto> Map<String, PaymentTransformable<T, R>> refundTransformMap (
+    public <T extends RefundMessage, R extends RefundPaymentDto> Map<String, PaymentTransformable<T, R>> refundTransformMap(
             final List<PaymentTransformable<T, R>> refundTransforms
     ) {
         return refundTransforms.stream()
@@ -53,10 +53,19 @@ public class ImplementationConfig {
     }
 
     @Bean
-    public <T extends TransactionMessage, R extends TransactionDto> Map<String, PaymentTransformable<T, R>> TxIdTransformMap (
+    public <T extends TransactionMessage, R extends TransactionDto> Map<String, PaymentTransformable<T, R>> TxIdTransformMap(
             final List<PaymentTransformable<T, R>> refundTransforms
     ) {
         return refundTransforms.stream()
                 .collect(Collectors.toMap(PaymentTransformable::getType, identity()));
     }
+
+    @Bean
+    public <T extends RequestMessage, R extends ResponseMessage> Map<String, PaymentUpdater<T, R>> paymentStateChangerWithResponseMap(
+            final List<PaymentUpdater<T, R>> stateChangers
+    ) {
+        return stateChangers.stream()
+                .collect(Collectors.toMap(PaymentUpdater::getType, identity()));
+    }
+
 }

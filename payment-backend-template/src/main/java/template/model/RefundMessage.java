@@ -14,4 +14,6 @@ public abstract class RefundMessage {
 
     @JsonProperty("type")
     private String type;
+    @JsonProperty("acquirer_tx_id")
+    private String acquirerTransactionId;
 }

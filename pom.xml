@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -22,10 +22,10 @@
     </modules>
 
     <properties>
-<!--        modules  version-->
+        <!--        modules  version-->
         <bluecode.starter>0.0.1</bluecode.starter>
         <backend.template>0.0.1</backend.template>
-<!--        maven java version-->
+        <!--        maven java version-->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
@@ -37,18 +37,19 @@
         <httpClient.version>11.7</httpClient.version>
         <validation.api.version>2.0.1.Final</validation.api.version>
         <springfox.boot.starter>3.0.0</springfox.boot.starter>
+        <resilience4j>1.7.1</resilience4j>
+        <spring.aspects>5.3.12</spring.aspects>
         <swagger>1.5.2</swagger>
-<!--        DataBase dependency version-->
+        <!--        DataBase dependency version-->
         <liquibase.core>4.3.5</liquibase.core>
         <persistense.api.version>2.2</persistense.api.version>
-        <h2.db.version>1.4.200</h2.db.version>
-        <mysql.connector>8.0.22</mysql.connector>
+        <postgresql>42.2.22</postgresql>
     </properties>
 
     <dependencyManagement>
         <dependencies>
 
-<!--            Modules-->
+            <!--            Modules-->
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>payment-backend-template</artifactId>
@@ -60,7 +61,7 @@
                 <version>${bluecode.starter}</version>
             </dependency>
 
-<!--            Jackson-->
+            <!--            Jackson-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
@@ -77,7 +78,7 @@
                 <version>${jackson.version}</version>
             </dependency>
 
-<!--            Spring boot-->
+            <!--            Spring boot-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -112,21 +113,16 @@
                 <scope>test</scope>
             </dependency>
 
-<!--            DataBase -->
+            <!--            DataBase -->
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
                 <version>${persistense.api.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.db.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector}</version>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql}</version>
             </dependency>
             <dependency>
                 <groupId>org.liquibase</groupId>
@@ -135,7 +131,7 @@
             </dependency>
 
 
-<!--            Openfeign-->
+            <!--            Openfeign-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -152,7 +148,7 @@
                 <version>${httpClient.version}</version>
             </dependency>
 
-<!--            lombok-->
+            <!--            lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -161,23 +157,30 @@
             </dependency>
 
 
-<!--            Swagger-->
-<!--            <dependency>-->
-<!--                <groupId>io.springfox</groupId>-->
-<!--                <artifactId>springfox-boot-starter</artifactId>-->
-<!--                <version>${springfox.boot.starter}</version>-->
-<!--            </dependency>-->
+            <!--            swagger-->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${swagger}</version>
             </dependency>
 
-<!--            validation-->
+            <!--            validation-->
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation.api.version}</version>
+            </dependency>
+
+            <!--            resilience4j-->
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-retry</artifactId>
+                <version>${resilience4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring.aspects}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

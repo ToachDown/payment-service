@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import template.model.TransactionMessage;
 
+import java.util.UUID;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
@@ -16,5 +18,5 @@ import template.model.TransactionMessage;
 public class TransactionMessageBluecode extends TransactionMessage {
 
     @JsonProperty("merchant_tx_id")
-    private String TransactionId;
+    private UUID TransactionId;
 }

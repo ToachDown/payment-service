@@ -38,5 +38,4 @@ public class PaymentDto {
     @Size(max = 1024)
     private String description;
 
-    private String PaymentId;
 }

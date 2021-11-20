@@ -15,7 +15,7 @@ import java.util.List;
 public class BluecodeSubTypesConfig {
 
     @Bean
-    public List<NamedType> listSubTypes () {
+    public List<NamedType> listSubTypes() {
         return List.of(
                 new NamedType(RequestMessageBluecode.class, "bluecode"),
                 new NamedType(ResponseMessageBluecode.class, "bluecode"),

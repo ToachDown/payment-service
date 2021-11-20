@@ -3,10 +3,8 @@ package com.example.bluecodepay.model.request;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.State;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +15,7 @@ import template.model.RequestMessage;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
@@ -25,10 +24,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
+@Table(name = "payment_bluecode")
 public class RequestMessageBluecode extends RequestMessage {
 
-    @JsonProperty("merchant_tx_id")
-    private String merchantTxId;
     @JsonProperty("scheme")
     @Enumerated(EnumType.STRING)
     private Scheme scheme;
@@ -62,6 +60,6 @@ public class RequestMessageBluecode extends RequestMessage {
     @JsonProperty("requested_amount")
     private int requestedAmount;
     @JsonIgnore
+    @Enumerated(EnumType.STRING)
     private State state;
-
 }

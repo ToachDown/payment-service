@@ -19,14 +19,14 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class PaymentFailure extends Payment{
+public class PaymentFailure extends Payment {
 
+    @JsonProperty("state")
+    @Enumerated(EnumType.STRING)
+    private final State state = State.FAILURE;
     @JsonProperty("code")
     @Enumerated(EnumType.STRING)
     private Code code;
     @JsonProperty("acquirer_tx_id")
     private String acquirerTxId;
-    @JsonProperty("state")
-    @Enumerated(EnumType.STRING)
-    private final State state = State.FAILURE;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @FeignClient(value = "${bluecode.feign.name}", url = "${bluecode.feign.url}")
@@ -18,10 +19,10 @@ public interface FeignBluecodeClient {
     ResponseMessageBluecode startPayment(RequestMessageBluecode requestMessageBluecode);
 
     @RequestMapping(method = RequestMethod.POST, value = "cancel")
-    ResponseMessageBluecode cancelPayment(Map<String, String> merchantIdMap);
+    ResponseMessageBluecode cancelPayment(Map<String, UUID> merchantIdMap);
 
     @RequestMapping(method = RequestMethod.POST, value = "status")
-    ResponseMessageBluecode statusPayment(Map<String, String> merchantIdMap);
+    ResponseMessageBluecode statusPayment(Map<String, UUID> merchantIdMap);
 
     @RequestMapping(method = RequestMethod.POST, value = "refund")
     ResponseMessageBluecode refundPayment(RefundMessageBluecode request);

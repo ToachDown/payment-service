@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -19,5 +20,5 @@ public class TransactionDto {
     private String api;
 
     @NotNull
-    private String PaymentId;
+    private UUID PaymentId;
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class MapperConfiguration {
 
     @Bean
-    public ObjectMapper getConfiguredMapper (List<List<NamedType>> subTypesList) {
+    public ObjectMapper getConfiguredMapper(List<List<NamedType>> subTypesList) {
         final ObjectMapper objectMapper = new ObjectMapper();
         final NamedType[] subTypes = subTypesList.stream()
                 .flatMap(Collection::stream)

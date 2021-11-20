@@ -16,13 +16,13 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class PaymentDeclined extends Payment{
+public class PaymentDeclined extends Payment {
 
+    @JsonProperty("state")
+    private final State state = State.DECLINED;
     @JsonProperty("code")
     private Code code;
     @JsonProperty("acquirer_tx_id")
     private String acquirerTxId;
-    @JsonProperty("state")
-    private final State state = State.DECLINED;
 
 }

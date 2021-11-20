@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class ResponseMessage{
+public abstract class ResponseMessage {
 
     @JsonProperty("type")
     private String type;

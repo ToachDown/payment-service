@@ -18,12 +18,12 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class PaymentCanceled extends Payment{
+public class PaymentCanceled extends Payment {
 
-    @JsonProperty("merchant_tx_id")
-    private String merchantIxId;
     @JsonProperty("state")
     @Enumerated(EnumType.STRING)
     private final State state = State.CANCELLED;
+    @JsonProperty("merchant_tx_id")
+    private String merchantIxId;
 
 }

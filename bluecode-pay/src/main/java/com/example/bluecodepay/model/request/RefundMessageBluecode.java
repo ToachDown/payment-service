@@ -19,6 +19,5 @@ public class RefundMessageBluecode extends RefundMessage {
     private Integer amount;
     @JsonProperty("reason")
     private String reason;
-    @JsonProperty("acquirer_tx_id")
-    private String acquirerTransactionId;
+
 }

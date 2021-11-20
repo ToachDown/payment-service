@@ -1,8 +1,5 @@
 package com.example.bluecodepay.model.response;
 
-import com.example.bluecodepay.model.enums.Code;
-import com.example.bluecodepay.model.enums.Currency;
-import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.State;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
