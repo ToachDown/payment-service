@@ -1,81 +1,62 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import com.example.paymentbackendtemplate.service.RequestFacade;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.jfr.ContentType;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import com.example.paymentbackendtemplate.service.PaymentService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import template.model.RequestMessage;
 import template.model.ResponseMessage;
+import template.model.dto.PaymentDto;
+import template.model.dto.RefundPaymentDto;
+import template.model.dto.TransactionDto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 
 @RestController
-@Getter
-@Setter
+@Validated
 @RequestMapping("api")
 public class PaymentController {
 
-    @Autowired
-    private RequestFacade requestFacade;
+    private final PaymentService paymentService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private PaymentRepository paymentRepository;
-
-    @GetMapping("/get-payment")
-    public void startPayment() {
-
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
+    @ResponseBody
+    @PostMapping(value = "/start-payment", produces = "application/json", consumes = "application/json")
+    public ResponseMessage startPayment(@RequestBody @Valid @NotNull final PaymentDto init) {
+        return paymentService.beginTransaction(init);
+    }
+
+    @ResponseBody
     @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public RequestMessage updatePayment(@RequestBody final String jsonString) throws JsonProcessingException {
-        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
-        paymentRepository.save(requestMessage);
-        return requestMessage;
-    }
-
-    @PostMapping("/capture-payment")
-    public void completePayment() {
-
+    public ResponseMessage updatePayment(@RequestBody @Valid @NotNull final PaymentDto patch) {
+        return paymentService.updatePayment(patch);
     }
 
     @ResponseBody
-    @GetMapping(value = "/get-all", produces = "application/json")
-    public List<RequestMessage> getAllPayments() {
-        return paymentRepository.findAll();
+    @PostMapping(value = "/capture-payment", consumes = "application/json", produces = "application/json")
+    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto capture) {
+        return paymentService.capturePayment(capture);
     }
 
     @ResponseBody
-    @GetMapping(value = "/get-payment/{id}", produces = "application/json")
-    public RequestMessage getPayment(@PathVariable Long id) {
-        return paymentRepository.findById(id).get();
+    @GetMapping(value = "/{api}/get-payment/{paymentId}", produces = "application/json")
+    public ResponseMessage getPayment(@PathVariable("api") @NotNull final String api, @PathVariable("paymentId") @NotNull final UUID paymentId) {
+        return paymentService.getPayment(paymentId, api);
     }
 
-    @PostMapping(value = "/start-payment", produces = "application/json", consumes = "application/json" )
-    public List<RequestMessage> startPayment (@RequestBody final RequestMessage requestMessage) {
-//        RequestMessage requestMessage = objectMapper.readValue(jsonString, RequestMessage.class);
-        paymentRepository.save(requestMessage);
-        return paymentRepository.findAll();
+    @ResponseBody
+    @PostMapping(value = "/cancel", consumes = "application/json", produces = "application/json")
+    public ResponseMessage cancelPayment(@RequestBody @Valid @NotNull final TransactionDto cancel) {
+        return paymentService.cancelPayment(cancel);
     }
 
-    @PostMapping("/cancel")
-    public void cancelPayment () {
-
-    }
-
-    @PostMapping("/refund")
-    public void refundPayment () {
-
+    @ResponseBody
+    @PostMapping(value = "/refund", produces = "application/json", consumes = "application/json")
+    public ResponseMessage refundPayment(@RequestBody @Valid @NotNull final RefundPaymentDto refund) {
+        return paymentService.refundPayment(refund);
     }
 }

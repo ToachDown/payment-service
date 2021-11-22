@@ -1,12 +1,23 @@
 package template.interfaces;
 
-public interface PaymentResolver<T, R> {
+import template.model.RefundMessage;
+import template.model.RequestMessage;
+import template.model.ResponseMessage;
+import template.model.TransactionMessage;
 
-    R startTransaction (T request);
+public interface PaymentResolver<R extends RequestMessage, T extends RefundMessage, V extends TransactionMessage, G extends ResponseMessage> {
 
-    R updatePayment (T request);
+    G capturePayment(R request);
 
-    R captureTransaction (T request);
+    G startPayment(R request);
+
+    G updatePayment(R request);
+
+    G refundPayment(T request);
+
+    G cancelPayment(V request);
+
+    G statusPayment(V request);
 
     String getType();
 }

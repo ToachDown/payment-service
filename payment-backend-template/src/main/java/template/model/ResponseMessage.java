@@ -1,19 +1,20 @@
 package template.model;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
-
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class ResponseMessage{
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@SuperBuilder(setterPrefix = "with", toBuilder = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+public abstract class ResponseMessage {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+    @JsonProperty("type")
+    private String type;
+
 }
