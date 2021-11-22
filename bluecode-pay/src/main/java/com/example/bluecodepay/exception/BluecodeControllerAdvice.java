@@ -13,16 +13,16 @@ public class BluecodeControllerAdvice {
 
     @ExceptionHandler(BlucodeFeignException.class)
     public ResponseEntity<String> handleBadRequest(BlucodeFeignException blucodeFeignException) {
-        return new ResponseEntity<>(blucodeFeignException.getMessage() , HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(blucodeFeignException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BluecodeTransformException.class)
-    public ResponseEntity<String> handlerBadTransform(BluecodeTransformException blucodeFeignException) {
-        return new ResponseEntity<>("system cannot convert you request: " + blucodeFeignException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handlerBadTransform(BluecodeTransformException bluecodeFeignException) {
+        return new ResponseEntity<>("system cannot convert you request: " + bluecodeFeignException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(BluecodeSystemException.class)
     public ResponseEntity<String> handlerSystemError(BluecodeSystemException bluecodeSystemException) {
-        return new ResponseEntity<>(bluecodeSystemException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("system error: " + bluecodeSystemException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

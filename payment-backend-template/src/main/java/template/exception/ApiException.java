@@ -1,9 +1,6 @@
 package template.exception;
 
-import lombok.Data;
-
-@Data
-public class ApiException extends Exception{
+public class ApiException extends Exception {
 
     public ApiException() {
     }

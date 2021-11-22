@@ -2,7 +2,6 @@ package com.example.bluecodepay.implementation.resolver;
 
 import com.example.bluecodepay.client.FeignBluecodeClient;
 import com.example.bluecodepay.configuration.ResilienceConfig;
-
 import com.example.bluecodepay.exception.custom.BlucodeFeignException;
 import com.example.bluecodepay.exception.custom.BluecodeException;
 import com.example.bluecodepay.exception.custom.BluecodeSystemException;
@@ -67,7 +66,7 @@ public class PaymentResolverBluecode implements PaymentResolver<RequestMessageBl
 
     @Override
     public ResponseMessageBluecode refundPayment(RefundMessageBluecode request) throws BluecodeException {
-        try{
+        try {
             return feignBluecodeClient.refundPayment(request);
         } catch (FeignException e) {
             throw new BlucodeFeignException(e.contentUTF8());

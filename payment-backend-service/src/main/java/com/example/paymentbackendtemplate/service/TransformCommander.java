@@ -32,11 +32,11 @@ public class TransformCommander {
         return refundTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
-    public TransactionMessage transformPaymentIdDto(TransactionDto dto) throws ApiException{
+    public TransactionMessage transformPaymentIdDto(TransactionDto dto) throws ApiException {
         return txIdTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
-    public RequestMessage transformPaymentDto(PaymentDto dto) throws ApiException{
+    public RequestMessage transformPaymentDto(PaymentDto dto) throws ApiException {
         return paymentTransformMap.get(dto.getApi()).transformDto(dto);
     }
 }

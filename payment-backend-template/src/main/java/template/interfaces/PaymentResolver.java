@@ -1,6 +1,5 @@
 package template.interfaces;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import template.exception.ApiException;
 import template.model.RefundMessage;
 import template.model.RequestMessage;

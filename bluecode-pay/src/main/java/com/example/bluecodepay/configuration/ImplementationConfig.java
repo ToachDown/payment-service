@@ -29,9 +29,7 @@ public class ImplementationConfig {
             T extends RefundMessage,
             V extends TransactionMessage,
             G extends ResponseMessage>
-    Map<String, PaymentResolver<R, T, V, G>> cancelPaymentDelegatorMap(
-            final List<PaymentResolver<R, T, V, G>> paymentResolvers
-    ) {
+    Map<String, PaymentResolver<R, T, V, G>> PaymentDelegatorMap(final List<PaymentResolver<R, T, V, G>> paymentResolvers) {
         return paymentResolvers.stream()
                 .collect(Collectors.toMap(PaymentResolver::getType, identity()));
     }
@@ -61,7 +59,7 @@ public class ImplementationConfig {
     }
 
     @Bean
-    public <T extends RequestMessage, R extends ResponseMessage> Map<String, PaymentUpdater<T, R>> paymentStateChangerWithResponseMap(
+    public <T extends RequestMessage, R extends ResponseMessage> Map<String, PaymentUpdater<T, R>> paymentStateChangerMap(
             final List<PaymentUpdater<T, R>> stateChangers
     ) {
         return stateChangers.stream()

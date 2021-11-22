@@ -32,11 +32,11 @@ public class RequestCommander {
         return paymentResolverMap.get(request.getType()).startPayment(request);
     }
 
-    public ResponseMessage updatePayment(RequestMessage request) throws ApiException{
+    public ResponseMessage updatePayment(RequestMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).updatePayment(request);
     }
 
-    public ResponseMessage captureTransaction(RequestMessage request) throws ApiException{
+    public ResponseMessage captureTransaction(RequestMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).capturePayment(request);
     }
 
@@ -44,7 +44,7 @@ public class RequestCommander {
         return paymentResolverMap.get(request.getType()).statusPayment(request);
     }
 
-    public ResponseMessage cancelTransaction(TransactionMessage request) throws ApiException{
+    public ResponseMessage cancelTransaction(TransactionMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).cancelPayment(request);
     }
 
@@ -52,11 +52,11 @@ public class RequestCommander {
         return paymentResolverMap.get(request.getType()).refundPayment(request);
     }
 
-    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) throws ApiException{
+    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) throws ApiException {
         return paymentStateChangerMap.get(request.getType()).changeStateWithResponse(request, response);
     }
 
-    public RequestMessage changePaymentState(RequestMessage request, String state) throws ApiException{
+    public RequestMessage changePaymentState(RequestMessage request, String state) throws ApiException {
         return paymentStateChangerMap.get(request.getType()).changeState(request, state);
     }
 }

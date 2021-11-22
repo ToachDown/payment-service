@@ -1,7 +1,6 @@
 package com.example.paymentbackendtemplate.controller;
 
 import com.example.paymentbackendtemplate.service.PaymentService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import template.exception.ApiException;
@@ -34,13 +33,13 @@ public class PaymentController {
 
     @ResponseBody
     @PatchMapping(value = "/update-payment", consumes = "application/json", produces = "application/json")
-    public ResponseMessage updatePayment(@RequestBody @Valid @NotNull final PaymentDto patch) throws ApiException{
+    public ResponseMessage updatePayment(@RequestBody @Valid @NotNull final PaymentDto patch) throws ApiException {
         return paymentService.updatePayment(patch);
     }
 
     @ResponseBody
     @PostMapping(value = "/capture-payment", consumes = "application/json", produces = "application/json")
-    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto capture) throws ApiException{
+    public ResponseMessage completePayment(@RequestBody @Valid @NotNull final PaymentDto capture) throws ApiException {
         return paymentService.capturePayment(capture);
     }
 

@@ -1,7 +1,6 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import template.exception.ApiException;
 import template.model.RefundMessage;
@@ -12,7 +11,6 @@ import template.model.dto.PaymentDto;
 import template.model.dto.RefundPaymentDto;
 import template.model.dto.TransactionDto;
 
-import javax.persistence.PersistenceException;
 import java.util.UUID;
 
 @Service

@@ -28,7 +28,7 @@ class PaymentBackendTemplateApplicationTests {
 
 
     @Test
-    void contextLoads() throws JsonProcessingException, ApiException{
+    void contextLoads() throws JsonProcessingException, ApiException {
         final RequestMessage requestMessage = new RequestMessageBluecode();
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMessage));
         System.out.println(requestCommander.startTransaction(requestMessage));

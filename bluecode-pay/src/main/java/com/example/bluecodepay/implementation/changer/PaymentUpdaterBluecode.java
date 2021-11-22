@@ -16,7 +16,7 @@ public class PaymentUpdaterBluecode implements PaymentUpdater<RequestMessageBlue
             request.setState(response.getPayment().getState());
             return request;
         } catch (Exception e) {
-            throw new BluecodeSystemException(e.getMessage());
+            throw new BluecodeSystemException("cannot change payment state from response: " + e.getMessage());
         }
     }
 
@@ -26,7 +26,7 @@ public class PaymentUpdaterBluecode implements PaymentUpdater<RequestMessageBlue
             request.setState(State.valueOf(state));
             return request;
         } catch (Exception e) {
-            throw new BluecodeSystemException(e.getMessage());
+            throw new BluecodeSystemException("cannot change payment state: " + e.getMessage());
         }
     }
 

@@ -20,6 +20,6 @@ public class ResilienceConfig {
                 .retryOnResult(response -> response.getResult().equals(Result.PROCESSING))
                 .build();
         RetryRegistry registry = RetryRegistry.of(config);
-        return registry.retry("my");
+        return registry.retry("ProcessingRetry");
     }
 }

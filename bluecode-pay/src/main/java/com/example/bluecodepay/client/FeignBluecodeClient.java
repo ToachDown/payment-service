@@ -16,16 +16,16 @@ import java.util.UUID;
 public interface FeignBluecodeClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "payment")
-    ResponseMessageBluecode startPayment(RequestMessageBluecode requestMessageBluecode);
+    ResponseMessageBluecode startPayment(RequestMessageBluecode startPaymentRequest);
 
     @RequestMapping(method = RequestMethod.POST, value = "cancel")
-    ResponseMessageBluecode cancelPayment(Map<String, UUID> merchantIdMap);
+    ResponseMessageBluecode cancelPayment(Map<String, UUID> cancelRequest);
 
     @RequestMapping(method = RequestMethod.POST, value = "status")
-    ResponseMessageBluecode statusPayment(Map<String, UUID> merchantIdMap);
+    ResponseMessageBluecode statusPayment(Map<String, UUID> statusRequest);
 
     @RequestMapping(method = RequestMethod.POST, value = "refund")
-    ResponseMessageBluecode refundPayment(RefundMessageBluecode request);
+    ResponseMessageBluecode refundPayment(RefundMessageBluecode refundRequest);
 
     @RequestMapping(method = RequestMethod.GET, value = "ping")
     ResponseMessageBluecode pingPayment();
