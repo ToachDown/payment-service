@@ -1,6 +1,7 @@
 package com.example.paymentbackendtemplate.service;
 
 import org.springframework.stereotype.Component;
+import template.exception.ApiException;
 import template.interfaces.PaymentResolver;
 import template.interfaces.PaymentUpdater;
 import template.model.RefundMessage;
@@ -27,35 +28,35 @@ public class RequestCommander {
         this.paymentStateChangerMap = paymentStateChangerMap;
     }
 
-    public ResponseMessage startTransaction(RequestMessage request) {
+    public ResponseMessage startTransaction(RequestMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).startPayment(request);
     }
 
-    public ResponseMessage updatePayment(RequestMessage request) {
+    public ResponseMessage updatePayment(RequestMessage request) throws ApiException{
         return paymentResolverMap.get(request.getType()).updatePayment(request);
     }
 
-    public ResponseMessage captureTransaction(RequestMessage request) {
+    public ResponseMessage captureTransaction(RequestMessage request) throws ApiException{
         return paymentResolverMap.get(request.getType()).capturePayment(request);
     }
 
-    public ResponseMessage statusTransaction(TransactionMessage request) {
+    public ResponseMessage statusTransaction(TransactionMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).statusPayment(request);
     }
 
-    public ResponseMessage cancelTransaction(TransactionMessage request) {
+    public ResponseMessage cancelTransaction(TransactionMessage request) throws ApiException{
         return paymentResolverMap.get(request.getType()).cancelPayment(request);
     }
 
-    public ResponseMessage refundPayment(RefundMessage request) {
+    public ResponseMessage refundPayment(RefundMessage request) throws ApiException {
         return paymentResolverMap.get(request.getType()).refundPayment(request);
     }
 
-    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) {
+    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) throws ApiException{
         return paymentStateChangerMap.get(request.getType()).changeStateWithResponse(request, response);
     }
 
-    public RequestMessage changePaymentState(RequestMessage request, String state) {
+    public RequestMessage changePaymentState(RequestMessage request, String state) throws ApiException{
         return paymentStateChangerMap.get(request.getType()).changeState(request, state);
     }
 }

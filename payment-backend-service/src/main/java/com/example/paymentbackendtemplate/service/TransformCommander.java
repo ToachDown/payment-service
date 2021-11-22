@@ -1,6 +1,7 @@
 package com.example.paymentbackendtemplate.service;
 
 import org.springframework.stereotype.Component;
+import template.exception.ApiException;
 import template.interfaces.PaymentTransformable;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
@@ -27,15 +28,15 @@ public class TransformCommander {
         this.txIdTransformMap = txIdTransformMap;
     }
 
-    public RefundMessage transformRefundDto(RefundPaymentDto dto) {
+    public RefundMessage transformRefundDto(RefundPaymentDto dto) throws ApiException {
         return refundTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
-    public TransactionMessage transformPaymentIdDto(TransactionDto dto) {
+    public TransactionMessage transformPaymentIdDto(TransactionDto dto) throws ApiException{
         return txIdTransformMap.get(dto.getApi()).transformDto(dto);
     }
 
-    public RequestMessage transformPaymentDto(PaymentDto dto) {
+    public RequestMessage transformPaymentDto(PaymentDto dto) throws ApiException{
         return paymentTransformMap.get(dto.getApi()).transformDto(dto);
     }
 }

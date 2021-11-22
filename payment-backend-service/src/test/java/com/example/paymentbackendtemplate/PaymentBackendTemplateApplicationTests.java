@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import template.exception.ApiException;
 import template.model.RequestMessage;
 
 @SpringBootTest
@@ -27,14 +28,14 @@ class PaymentBackendTemplateApplicationTests {
 
 
     @Test
-    void contextLoads() throws JsonProcessingException {
+    void contextLoads() throws JsonProcessingException, ApiException{
         final RequestMessage requestMessage = new RequestMessageBluecode();
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMessage));
         System.out.println(requestCommander.startTransaction(requestMessage));
     }
 
     @Test
-    void getObjMapperWithSubTypes() throws JsonProcessingException {
+    void getObjMapperWithSubTypes() throws JsonProcessingException, ApiException {
         final RequestMessageBluecode requestMess = new RequestMessageBluecode();
         final String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMess);
         System.out.println(json);

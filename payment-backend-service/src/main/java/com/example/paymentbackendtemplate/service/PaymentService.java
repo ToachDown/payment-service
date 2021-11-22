@@ -1,7 +1,9 @@
 package com.example.paymentbackendtemplate.service;
 
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
+import template.exception.ApiException;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
@@ -10,6 +12,7 @@ import template.model.dto.PaymentDto;
 import template.model.dto.RefundPaymentDto;
 import template.model.dto.TransactionDto;
 
+import javax.persistence.PersistenceException;
 import java.util.UUID;
 
 @Service
@@ -29,7 +32,7 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    public ResponseMessage beginTransaction(PaymentDto dto) {
+    public ResponseMessage beginTransaction(PaymentDto dto) throws ApiException {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         ResponseMessage response = requestCommander.startTransaction(request);
@@ -38,7 +41,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage updatePayment(PaymentDto dto) {
+    public ResponseMessage updatePayment(PaymentDto dto) throws ApiException {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         final ResponseMessage response = requestCommander.updatePayment(request);
@@ -47,7 +50,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage refundPayment(RefundPaymentDto dto) {
+    public ResponseMessage refundPayment(RefundPaymentDto dto) throws ApiException {
         final RefundMessage refundRequest = transformCommander.transformRefundDto(dto);
         RequestMessage request = paymentRepository.findById(dto.getTransactionId()).get();
         final ResponseMessage response = requestCommander.refundPayment(refundRequest);
@@ -56,7 +59,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage getPayment(UUID paymentId, String api) {
+    public ResponseMessage getPayment(UUID paymentId, String api) throws ApiException {
         final TransactionDto dto = TransactionDto.builder()
                 .withApi(api)
                 .withPaymentId(paymentId)
@@ -66,7 +69,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage cancelPayment(TransactionDto dto) {
+    public ResponseMessage cancelPayment(TransactionDto dto) throws ApiException {
         final TransactionMessage txRequest = transformCommander.transformPaymentIdDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getPaymentId());
         final ResponseMessage response = requestCommander.cancelTransaction(txRequest);
@@ -75,7 +78,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage capturePayment(PaymentDto dto) {
+    public ResponseMessage capturePayment(PaymentDto dto) throws ApiException {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         final ResponseMessage response = requestCommander.captureTransaction(request);

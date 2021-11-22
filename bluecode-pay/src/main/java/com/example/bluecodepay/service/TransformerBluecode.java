@@ -1,5 +1,6 @@
 package com.example.bluecodepay.service;
 
+import com.example.bluecodepay.exception.custom.BluecodeTransformException;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.State;
@@ -21,42 +22,55 @@ public class TransformerBluecode {
     private static final String SUCCESS_REFUND_BARCODE = "98800000000000000099";
     private static final String PROCESSING_BARCODE = "98802222999900308001";
     private static final String ERROR_BARCODE = "98804444000000402005";
+    private static final String ERROR_INTERNAL_SERVER = "98802222999900500500";
 
     @Value("${bluecode.tip.amount}")
     private Integer tip;
 
-    public RequestMessageBluecode transformRequestMessage(PaymentDto dto) {
-        final String id = UUID.randomUUID().toString();
-        return RequestMessageBluecode.builder()
-                .withCurrency(Currency.valueOf(dto.getCurrency()))
-                .withType(dto.getApi())
-                .withState(State.TODO)
-                .withScheme(Scheme.AUTO)
-                .withPurchaseAmount(dto.getAmount())
-                .withDiscountAmount(dto.getDiscountAmount())
-                .withTipAmount(calculatedTipAmount(tip, dto.getAmount()))
-                .withRequestedAmount(calculatingClearAmount(dto.getAmount(), tip, dto.getDiscountAmount()))
-                .withBarcode(SUCCESS_REFUND_BARCODE)
-                .withBranchExtId("test")
-                .withEndToEndId(dto.isInstantPayment() ? id : null)
-                .withSlipNote(dto.getDescription())
-                .build();
+    public RequestMessageBluecode transformRequestMessage(PaymentDto dto) throws BluecodeTransformException {
+        try {
+            final String id = UUID.randomUUID().toString();
+            return RequestMessageBluecode.builder()
+                    .withCurrency(Currency.valueOf(dto.getCurrency()))
+                    .withType(dto.getApi())
+                    .withState(State.TODO)
+                    .withScheme(Scheme.AUTO)
+                    .withPurchaseAmount(dto.getAmount())
+                    .withDiscountAmount(dto.getDiscountAmount())
+                    .withTipAmount(calculatedTipAmount(tip, dto.getAmount()))
+                    .withRequestedAmount(calculatingClearAmount(dto.getAmount(), tip, dto.getDiscountAmount()))
+                    .withBarcode(ERROR_BARCODE)
+                    .withBranchExtId("test")
+                    .withEndToEndId(dto.isInstantPayment() ? id : null)
+                    .withSlipNote(dto.getDescription())
+                    .build();
+        } catch (RuntimeException e) {
+            throw new BluecodeTransformException(e);
+        }
     }
 
-    public RefundMessageBluecode transformRefundMessage(RefundPaymentDto dto) {
-        return RefundMessageBluecode.builder()
-                .withType("bluecode")
-                .withAmount(dto.getAmount())
-                .withAcquirerTransactionId(dto.getAcquirerId())
-                .withReason(dto.getReason())
-                .build();
+    public RefundMessageBluecode transformRefundMessage(RefundPaymentDto dto) throws BluecodeTransformException {
+        try {
+            return RefundMessageBluecode.builder()
+                    .withType("bluecode")
+                    .withAmount(dto.getAmount())
+                    .withAcquirerTransactionId(dto.getAcquirerId())
+                    .withReason(dto.getReason())
+                    .build();
+        } catch (RuntimeException e) {
+            throw new BluecodeTransformException(e);
+        }
     }
 
-    public TransactionMessageBluecode transformTransactionMessage(TransactionDto dto) {
-        return TransactionMessageBluecode.builder()
-                .withType(dto.getApi())
-                .withTransactionId(dto.getPaymentId())
-                .build();
+    public TransactionMessageBluecode transformTransactionMessage(TransactionDto dto) throws BluecodeTransformException {
+        try {
+            return TransactionMessageBluecode.builder()
+                    .withType(dto.getApi())
+                    .withTransactionId(dto.getPaymentId())
+                    .build();
+        } catch (RuntimeException e) {
+            throw new BluecodeTransformException(e);
+        }
     }
 
     private int calculatedTipAmount(int tip, int full) {

@@ -1,5 +1,6 @@
 package com.example.bluecodepay.implementation.transformable;
 
+import com.example.bluecodepay.exception.custom.BluecodeTransformException;
 import com.example.bluecodepay.model.request.RequestMessageBluecode;
 import com.example.bluecodepay.service.TransformerBluecode;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class PaymentTransformableBluecode implements PaymentTransformable<Reques
     }
 
     @Override
-    public RequestMessageBluecode transformDto(PaymentDto dto) {
+    public RequestMessageBluecode transformDto(PaymentDto dto) throws BluecodeTransformException {
         return transformServiceBluecode.transformRequestMessage(dto);
     }
 
