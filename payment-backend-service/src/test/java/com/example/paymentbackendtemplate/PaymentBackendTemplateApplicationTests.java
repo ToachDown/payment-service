@@ -1,48 +1,23 @@
 package com.example.paymentbackendtemplate;
 
-import com.example.bluecodepay.model.request.RequestMessageBluecode;
-import com.example.paymentbackendtemplate.repository.PaymentRepository;
-import com.example.paymentbackendtemplate.service.RequestCommander;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import template.exception.ApiException;
-import template.model.RequestMessage;
+import template.exception.ApiFeignException;
 
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class PaymentBackendTemplateApplicationTests {
 
-    @Autowired
-    private RequestCommander requestCommander;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private PaymentRepository paymentRepo;
-
 
     @Test
-    void contextLoads() throws JsonProcessingException, ApiException {
-        final RequestMessage requestMessage = new RequestMessageBluecode();
-        System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMessage));
-        System.out.println(requestCommander.startTransaction(requestMessage));
+    void contextLoads() throws JsonProcessingException, ApiFeignException {
+
     }
 
     @Test
-    void getObjMapperWithSubTypes() throws JsonProcessingException, ApiException {
-        final RequestMessageBluecode requestMess = new RequestMessageBluecode();
-        final String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestMess);
-        System.out.println(json);
-        RequestMessage requestMessage = objectMapper.readValue(json, RequestMessage.class);
-        paymentRepo.save(requestMessage);
-        paymentRepo.findAll().forEach(System.out::println);
-        System.out.println(requestCommander.startTransaction(requestMessage));
+    void getObjMapperWithSubTypes() throws JsonProcessingException, ApiFeignException {
+
     }
 
     @Test

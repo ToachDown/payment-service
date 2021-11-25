@@ -40,6 +40,8 @@
         <resilience4j>1.7.1</resilience4j>
         <spring.aspects>5.3.12</spring.aspects>
         <swagger>1.5.2</swagger>
+        <junit>5.5.2</junit>
+        <mockito.core>2.24.0</mockito.core>
         <!--        DataBase dependency version-->
         <liquibase.core>4.3.5</liquibase.core>
         <persistense.api.version>2.2</persistense.api.version>
@@ -95,6 +97,11 @@
                 <version>${spring.boot.version}</version>
                 <scope>runtime</scope>
                 <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -181,6 +188,24 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aspects</artifactId>
                 <version>${spring.aspects}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.core}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,8 +1,8 @@
 package com.example.paymentbackendtemplate.service;
 
+import com.example.paymentbackendtemplate.exception.DataBaseException;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
-import template.exception.ApiException;
 import template.model.RefundMessage;
 import template.model.RequestMessage;
 import template.model.ResponseMessage;
@@ -30,7 +30,7 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    public ResponseMessage beginTransaction(PaymentDto dto) throws ApiException {
+    public ResponseMessage beginTransaction(PaymentDto dto) {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         ResponseMessage response = requestCommander.startTransaction(request);
@@ -39,7 +39,7 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage updatePayment(PaymentDto dto) throws ApiException {
+    public ResponseMessage updatePayment(PaymentDto dto) {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         final ResponseMessage response = requestCommander.updatePayment(request);
@@ -48,16 +48,19 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage refundPayment(RefundPaymentDto dto) throws ApiException {
+    public ResponseMessage refundPayment(RefundPaymentDto dto) {
         final RefundMessage refundRequest = transformCommander.transformRefundDto(dto);
-        RequestMessage request = paymentRepository.findById(dto.getTransactionId()).get();
+        RequestMessage request = paymentRepository.getById(dto.getTransactionId());
+        if(request == null) {
+            throw new DataBaseException("payment with id [" + dto.getTransactionId() + "]");
+        }
         final ResponseMessage response = requestCommander.refundPayment(refundRequest);
         request = requestCommander.changePaymentState(request, "REFUNDED");
         paymentRepository.save(request);
         return response;
     }
 
-    public ResponseMessage getPayment(UUID paymentId, String api) throws ApiException {
+    public ResponseMessage getPayment(UUID paymentId, String api) {
         final TransactionDto dto = TransactionDto.builder()
                 .withApi(api)
                 .withPaymentId(paymentId)
@@ -67,16 +70,19 @@ public class PaymentService {
         return response;
     }
 
-    public ResponseMessage cancelPayment(TransactionDto dto) throws ApiException {
+    public ResponseMessage cancelPayment(TransactionDto dto) {
         final TransactionMessage txRequest = transformCommander.transformPaymentIdDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getPaymentId());
+        if(request == null) {
+            throw new DataBaseException("payment with id [" + dto.getPaymentId() + "]");
+        }
         final ResponseMessage response = requestCommander.cancelTransaction(txRequest);
         request = requestCommander.changePaymentState(request, "CANCELLED");
         paymentRepository.save(request);
         return response;
     }
 
-    public ResponseMessage capturePayment(PaymentDto dto) throws ApiException {
+    public ResponseMessage capturePayment(PaymentDto dto) {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
         final ResponseMessage response = requestCommander.captureTransaction(request);

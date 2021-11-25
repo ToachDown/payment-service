@@ -1,4 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
    com.example.bluecodepay.configuration.BluecodeSubTypesConfig,\
    com.example.bluecodepay.configuration.FeignConfig,\
-   com.example.bluecodepay.configuration.ImplementationConfig
+   com.example.bluecodepay.configuration.PaymentUpdaterConfig,\
+   com.example.bluecodepay.factory.Resilience4jFactory,\
+   com.example.bluecodepay.configuration.ResolverConfig,\
+   com.example.bluecodepay.configuration.TransformerConfig
