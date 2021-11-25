@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class BluecodeControllerAdvice {
 
-    @ExceptionHandler(BlucodeFeignInternalException.class)
-    public ResponseEntity<String> handlerSystemError(BlucodeFeignInternalException blucodeFeignException) {
+    @ExceptionHandler(BluecodeFeignInternalException.class)
+    public ResponseEntity<String> handlerSystemError(BluecodeFeignInternalException blucodeFeignException) {
         return new ResponseEntity<>("System error: " + blucodeFeignException.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }

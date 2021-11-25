@@ -1,5 +1,6 @@
 package com.example.bluecodepay.model.response;
 
+import com.example.bluecodepay.model.enums.ErrorCode;
 import com.example.bluecodepay.model.enums.Result;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,14 +18,14 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class BluecodeResponseProcessingResponseMessage extends BluecodeResponseMessage {
+@SuperBuilder(setterPrefix = "with", toBuilder = true)
+public class BluecodeResponseMessageError extends BluecodeResponseMessage {
 
     @JsonProperty("result")
     @Enumerated(EnumType.STRING)
-    private final Result result = Result.PROCESSING;
-    @JsonProperty("status")
+    private final Result result = Result.ERROR;
+    @JsonProperty("error_code")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ErrorCode errorCode;
 
 }

@@ -1,6 +1,5 @@
 package com.example.bluecodepay.service.transformer;
 
-import com.example.bluecodepay.exception.custom.BluecodeFeignNotFoundException;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.transformer.BluecodeTransformer;
 import org.springframework.stereotype.Component;

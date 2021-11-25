@@ -1,6 +1,6 @@
 package com.example.paymentbackendtemplate.service;
 
-import com.example.bluecodepay.exception.custom.BlucodeFeignInternalException;
+import com.example.bluecodepay.exception.custom.BluecodeFeignInternalException;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
 import com.example.bluecodepay.model.request.BluecodeRefundMessage;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
@@ -30,8 +30,9 @@ import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
@@ -126,7 +127,7 @@ public class PaymentServiceTest {
         when(transformCommander.transformPaymentDto(paymentDto))
                 .thenReturn(new BluecodeRequestMessage());
         when(requestCommander.startTransaction(any(RequestMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.beginTransaction(paymentDto))
@@ -143,7 +144,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    void shouldTriggerTransformExceptionStartPaymentTest(){
+    void shouldTriggerTransformExceptionStartPaymentTest() {
         PaymentDto paymentDto = new PaymentDto();
         //when
 
@@ -230,7 +231,7 @@ public class PaymentServiceTest {
         when(transformCommander.transformPaymentDto(paymentDto))
                 .thenReturn(new BluecodeRequestMessage());
         when(requestCommander.updatePayment(any(RequestMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.updatePayment(paymentDto))
@@ -315,7 +316,7 @@ public class PaymentServiceTest {
         when(transformCommander.transformPaymentDto(paymentDto))
                 .thenReturn(new BluecodeRequestMessage());
         when(requestCommander.captureTransaction(any(RequestMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.capturePayment(paymentDto))
@@ -404,7 +405,7 @@ public class PaymentServiceTest {
         when(paymentRepository.getById(eq(refundPaymentDto.getTransactionId())))
                 .thenReturn(new BluecodeRequestMessage());
         when(requestCommander.refundPayment(any(RefundMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.refundPayment(refundPaymentDto))
@@ -498,7 +499,7 @@ public class PaymentServiceTest {
         when(transformCommander.transformPaymentIdDto(dto))
                 .thenReturn(new BluecodeTransactionMessage());
         when(requestCommander.statusTransaction(any(TransactionMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.getPayment(dto.getPaymentId(), dto.getApi()))
@@ -617,7 +618,7 @@ public class PaymentServiceTest {
         when(paymentRepository.getById(dto.getPaymentId()))
                 .thenReturn(new BluecodeRequestMessage());
         when(requestCommander.cancelTransaction(any(TransactionMessage.class)))
-                .thenThrow(new BlucodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
+                .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.cancelPayment(dto))

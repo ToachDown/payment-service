@@ -17,7 +17,7 @@ public class FeignHandlerAspect {
             javaPoint.proceed();
             return null;
         } catch (FeignException.InternalServerError InternalServerError) {
-            throw new BlucodeFeignInternalException(InternalServerError.contentUTF8());
+            throw new BluecodeFeignInternalException(InternalServerError.contentUTF8());
         } catch (FeignException.GatewayTimeout gatewayTimeout) {
             throw new BluecodeFeignTimeoutException(gatewayTimeout.contentUTF8());
         } catch (FeignException.Unauthorized unauthorized) {
@@ -27,7 +27,7 @@ public class FeignHandlerAspect {
         } catch (FeignException.UnsupportedMediaType unsupportedMediaType) {
             throw new BluecodeFeignUnsupportedMediaTypeException(unsupportedMediaType.contentUTF8());
         } catch (FeignException feignException) {
-            throw new BlucodeFeignInternalException(feignException.contentUTF8());
+            throw new BluecodeFeignInternalException(feignException.contentUTF8());
         }
     }
 }

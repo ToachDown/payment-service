@@ -16,7 +16,7 @@ public class BluecodeRefundTransformer implements PaymentAwareTransformer<Blueco
     }
 
     @Override
-    public BluecodeRefundMessage transformDto(RefundPaymentDto dto)  {
+    public BluecodeRefundMessage transformDto(RefundPaymentDto dto) {
         return transformServiceBluecode.transformRefundMessage(dto);
     }
 

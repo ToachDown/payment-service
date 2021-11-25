@@ -1,7 +1,5 @@
 package com.example.bluecodepay.service;
 
-import com.example.bluecodepay.exception.custom.BluecodeFeignBadRequestException;
-import com.example.bluecodepay.exception.custom.BluecodeFeignNotFoundException;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
 import com.example.bluecodepay.model.enums.Barcode;
 import com.example.bluecodepay.model.enums.Currency;
@@ -25,8 +23,8 @@ import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 @ExtendWith({MockitoExtension.class})
 public class TransformServiceTest {
@@ -41,11 +39,11 @@ public class TransformServiceTest {
 
     @Test
     void calculatedTimAmountTest() {
-       int tip = 5;
-       int amount = 1000;
-       int discount = 100;
-       int tipAmount = bluecodeTransformer.calculatedTipAmount(tip, amount, discount);
-       assertThat(45).isEqualTo(tipAmount);
+        int tip = 5;
+        int amount = 1000;
+        int discount = 100;
+        int tipAmount = bluecodeTransformer.calculatedTipAmount(tip, amount, discount);
+        assertThat(45).isEqualTo(tipAmount);
     }
 
     @Test
@@ -67,7 +65,7 @@ public class TransformServiceTest {
     }
 
     @Test
-    void calculatedClearAmountTest(){
+    void calculatedClearAmountTest() {
         int tip = 4;
         int amount = 1000;
         int discount = 100;

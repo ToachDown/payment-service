@@ -28,48 +28,48 @@ public class BluecodeTransformer {
     private Integer tip;
 
     public BluecodeRequestMessage transformRequestMessage(PaymentDto dto) {
-            return BluecodeRequestMessage.builder()
-                    .withCurrency(Currency.valueOf(dto.getCurrency()))
-                    .withType(dto.getApi())
-                    .withState(State.TODO)
-                    .withScheme(Scheme.AUTO)
-                    .withPurchaseAmount(dto.getAmount())
-                    .withDiscountAmount(dto.getDiscountAmount())
-                    .withTipAmount(calculatedTipAmount(tip, dto.getAmount(), dto.getDiscountAmount()))
-                    .withRequestedAmount(calculatingClearAmount(dto.getAmount(), tip, dto.getDiscountAmount()))
-                    .withBarcode(Barcode.valueOf(dto.getBarcode()).getBarcode())
-                    .withBranchExtId("test")
-                    .withEndToEndId(dto.isInstantPayment() ? UUID.randomUUID().toString() : null)
-                    .withSlipNote(dto.getDescription())
-                    .build();
+        return BluecodeRequestMessage.builder()
+                .withCurrency(Currency.valueOf(dto.getCurrency()))
+                .withType(dto.getApi())
+                .withState(State.TODO)
+                .withScheme(Scheme.AUTO)
+                .withPurchaseAmount(dto.getAmount())
+                .withDiscountAmount(dto.getDiscountAmount())
+                .withTipAmount(calculatedTipAmount(tip, dto.getAmount(), dto.getDiscountAmount()))
+                .withRequestedAmount(calculatingClearAmount(dto.getAmount(), tip, dto.getDiscountAmount()))
+                .withBarcode(Barcode.valueOf(dto.getBarcode()).getBarcode())
+                .withBranchExtId("test")
+                .withEndToEndId(dto.isInstantPayment() ? UUID.randomUUID().toString() : null)
+                .withSlipNote(dto.getDescription())
+                .build();
     }
 
     public BluecodeRefundMessage transformRefundMessage(RefundPaymentDto dto) {
         return BluecodeRefundMessage.builder()
-                    .withType("bluecode")
-                    .withAmount(dto.getAmount())
-                    .withAcquirerTransactionId(dto.getAcquirerId())
-                    .withReason(dto.getReason())
-                    .build();
+                .withType("bluecode")
+                .withAmount(dto.getAmount())
+                .withAcquirerTransactionId(dto.getAcquirerId())
+                .withReason(dto.getReason())
+                .build();
     }
 
     public BluecodeTransactionMessage transformTransactionMessage(TransactionDto dto) {
         return BluecodeTransactionMessage.builder()
-                    .withType(dto.getApi())
-                    .withTransactionId(dto.getPaymentId())
-                    .build();
+                .withType(dto.getApi())
+                .withTransactionId(dto.getPaymentId())
+                .build();
     }
 
     public int calculatedTipAmount(int tip, int full, int discount) {
-        if(discount > full) {
+        if (discount > full) {
             throw new BluecodeTransformBadParametersException(BAD_DISCOUNT_WITH_AMOUNT);
         }
-        return ((full-discount) * tip) / 100;
+        return ((full - discount) * tip) / 100;
     }
 
     public int calculatingClearAmount(int full, int tip, int discount) throws BluecodeFeignBadRequestException {
         int result = (full - discount) + (int) ((full - discount) * (tip / ((float) 100)));
-        if(discount > full) {
+        if (discount > full) {
             throw new BluecodeTransformBadParametersException(BAD_DISCOUNT_WITH_AMOUNT);
         }
         return result;

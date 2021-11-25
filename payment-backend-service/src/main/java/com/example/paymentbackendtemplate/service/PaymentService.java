@@ -51,7 +51,7 @@ public class PaymentService {
     public ResponseMessage refundPayment(RefundPaymentDto dto) {
         final RefundMessage refundRequest = transformCommander.transformRefundDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getTransactionId());
-        if(request == null) {
+        if (request == null) {
             throw new DataBaseException("payment with id [" + dto.getTransactionId() + "]");
         }
         final ResponseMessage response = requestCommander.refundPayment(refundRequest);
@@ -73,7 +73,7 @@ public class PaymentService {
     public ResponseMessage cancelPayment(TransactionDto dto) {
         final TransactionMessage txRequest = transformCommander.transformPaymentIdDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getPaymentId());
-        if(request == null) {
+        if (request == null) {
             throw new DataBaseException("payment with id [" + dto.getPaymentId() + "]");
         }
         final ResponseMessage response = requestCommander.cancelTransaction(txRequest);

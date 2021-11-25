@@ -21,9 +21,9 @@ import javax.persistence.Enumerated;
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "result")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = BluecodeResponseOkResponseMessage.class, name = "OK"),
-        @JsonSubTypes.Type(value = BluecodeResponseProcessingResponseMessage.class, name = "PROCESSING"),
-        @JsonSubTypes.Type(value = BluecodeResponseErrorResponseMessage.class, name = "ERROR")
+        @JsonSubTypes.Type(value = BluecodeResponseMessageOk.class, name = "OK"),
+        @JsonSubTypes.Type(value = BluecodeResponseMessageProcessing.class, name = "PROCESSING"),
+        @JsonSubTypes.Type(value = BluecodeResponseMessageError.class, name = "ERROR")
 })
 public class BluecodeResponseMessage extends ResponseMessage {
 

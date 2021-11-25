@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-public class BluecodeFeignTimeoutException extends BluecodeFeignException{
+public class BluecodeFeignTimeoutException extends BluecodeFeignException {
 
     public BluecodeFeignTimeoutException() {
     }

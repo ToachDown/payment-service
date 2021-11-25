@@ -1,6 +1,6 @@
 package template.exception;
 
-public class ApiTransformException extends RuntimeException{
+public class ApiTransformException extends RuntimeException {
 
     public ApiTransformException() {
     }

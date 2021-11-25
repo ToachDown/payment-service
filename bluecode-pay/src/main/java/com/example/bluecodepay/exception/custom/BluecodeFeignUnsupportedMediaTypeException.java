@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-public class BluecodeFeignUnsupportedMediaTypeException extends BluecodeFeignException{
+public class BluecodeFeignUnsupportedMediaTypeException extends BluecodeFeignException {
 
     public BluecodeFeignUnsupportedMediaTypeException() {
     }

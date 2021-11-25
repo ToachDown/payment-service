@@ -9,7 +9,7 @@ import com.example.bluecodepay.model.request.BluecodeRefundMessage;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.model.request.BluecodeTransactionMessage;
 import com.example.bluecodepay.model.response.BluecodeResponseMessage;
-import com.example.bluecodepay.model.response.BluecodeResponseProcessingResponseMessage;
+import com.example.bluecodepay.model.response.BluecodeResponseMessageProcessing;
 import feign.FeignException;
 import io.github.resilience4j.retry.Retry;
 import org.springframework.stereotype.Component;
@@ -42,10 +42,10 @@ public class BluecodePaymentResolver implements PaymentResolver<BluecodeRequestM
 
     @Override
     @FeignHandler(exceptions = FeignException.class)
-    public BluecodeResponseMessage startPayment(BluecodeRequestMessage request){
+    public BluecodeResponseMessage startPayment(BluecodeRequestMessage request) {
         final BluecodeResponseMessage responseMessageBluecode = bluecodeFeignClient.startPayment(request);
         if (responseMessageBluecode.getResult().equals(Result.PROCESSING)) {
-            BluecodeResponseProcessingResponseMessage bluecodeResponseProcessing = (BluecodeResponseProcessingResponseMessage) responseMessageBluecode;
+            BluecodeResponseMessageProcessing bluecodeResponseProcessing = (BluecodeResponseMessageProcessing) responseMessageBluecode;
             Retry retry = resilience4jFactory.getConfigureRetry(bluecodeResponseProcessing.getStatus());
             Supplier<BluecodeResponseMessage> supplier = () -> bluecodeFeignClient.statusPayment(Map.of("merchant_tx_id", request.getId()));
             return Retry.decorateSupplier(retry, supplier).get();
@@ -54,7 +54,6 @@ public class BluecodePaymentResolver implements PaymentResolver<BluecodeRequestM
     }
 
     @Override
-    @FeignHandler(exceptions = FeignException.class)
     public BluecodeResponseMessage updatePayment(BluecodeRequestMessage request) {
         throw new BluecodeFeignUnsupportedMethodException(PAYMENT_API_NOT_SUPPORT_OPERATION);
     }

@@ -1,6 +1,5 @@
 package template.model.dto;
 
-import jdk.jfr.Description;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

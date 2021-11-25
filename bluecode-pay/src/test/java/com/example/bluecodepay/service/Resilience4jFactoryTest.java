@@ -21,15 +21,28 @@ public class Resilience4jFactoryTest {
     @Test
     void getConfigureRetryTest() {
         Status status = Status.builder()
-                .merchantTxId(UUID.randomUUID().toString())
-                .checkStatusIn(100)
-                .ttl(30000)
+                .withMerchantTxId(UUID.randomUUID().toString())
+                .withCheckStatusIn(100)
+                .withTtl(30000)
                 .build();
 
         Retry retry = resilience4jFactory.getConfigureRetry(status);
 
         assertThat(retry.getName()).isEqualTo("ProcessingRetry");
-        assertThat(retry.getRetryConfig().getMaxAttempts()).isEqualTo(status.getTtl()/status.getCheckStatusIn() + 3);
+        assertThat(retry.getRetryConfig().getMaxAttempts()).isEqualTo(status.getTtl() / status.getCheckStatusIn() + 3);
     }
 
+    @Test
+    void whenStatusInMoreThanTtlGetConfigureRetryTest() {
+        Status status = Status.builder()
+                .withMerchantTxId(UUID.randomUUID().toString())
+                .withCheckStatusIn(3000)
+                .withTtl(1000)
+                .build();
+
+        Retry retry = resilience4jFactory.getConfigureRetry(status);
+
+        assertThat(retry.getName()).isEqualTo("ProcessingRetry");
+        assertThat(retry.getRetryConfig().getMaxAttempts()).isEqualTo(status.getTtl() / status.getCheckStatusIn() + 3);
+    }
 }

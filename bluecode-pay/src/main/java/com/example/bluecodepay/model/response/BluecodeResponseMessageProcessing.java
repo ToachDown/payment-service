@@ -18,16 +18,13 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
-public class BluecodeResponseOkResponseMessage extends BluecodeResponseMessage {
+public class BluecodeResponseMessageProcessing extends BluecodeResponseMessage {
 
     @JsonProperty("result")
     @Enumerated(EnumType.STRING)
-    private final Result result = Result.OK;
-    @JsonProperty("payment")
-    private Payment payment;
-    @JsonProperty("instant_refund")
-    private InstantRefund instantRefund;
-    @JsonProperty("message")
-    private String message;
+    private final Result result = Result.PROCESSING;
+    @JsonProperty("status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

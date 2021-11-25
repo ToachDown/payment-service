@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@SuperBuilder(toBuilder = true)
+@SuperBuilder(toBuilder = true, setterPrefix = "with")
 public class Status {
 
     @JsonProperty("merchant_tx_id")

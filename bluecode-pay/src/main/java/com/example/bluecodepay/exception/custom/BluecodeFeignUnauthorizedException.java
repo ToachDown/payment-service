@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-public class BluecodeFeignUnauthorizedException extends BluecodeFeignException{
+public class BluecodeFeignUnauthorizedException extends BluecodeFeignException {
 
     public BluecodeFeignUnauthorizedException() {
     }

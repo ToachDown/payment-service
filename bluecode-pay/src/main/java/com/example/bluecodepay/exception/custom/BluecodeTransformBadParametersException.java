@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-public class BluecodeTransformBadParametersException extends BluecodeTransformException{
+public class BluecodeTransformBadParametersException extends BluecodeTransformException {
 
     public BluecodeTransformBadParametersException() {
     }
