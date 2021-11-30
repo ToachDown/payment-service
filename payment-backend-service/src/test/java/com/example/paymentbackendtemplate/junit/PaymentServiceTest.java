@@ -1,4 +1,4 @@
-package com.example.paymentbackendtemplate.service;
+package com.example.paymentbackendtemplate.junit;
 
 import com.example.bluecodepay.exception.custom.BluecodeFeignInternalException;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
@@ -6,12 +6,15 @@ import com.example.bluecodepay.model.request.BluecodeRefundMessage;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.model.request.BluecodeTransactionMessage;
 import com.example.bluecodepay.model.response.BluecodeResponseMessage;
-import com.example.paymentbackendtemplate.exception.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
 import com.example.paymentbackendtemplate.implementation.RefundMessageTest;
 import com.example.paymentbackendtemplate.implementation.RequestMessageTest;
 import com.example.paymentbackendtemplate.implementation.ResponseMessageTest;
 import com.example.paymentbackendtemplate.implementation.TransactionMessageTest;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
+import com.example.paymentbackendtemplate.service.PaymentService;
+import com.example.paymentbackendtemplate.service.RequestCommander;
+import com.example.paymentbackendtemplate.service.TransformCommander;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,8 +33,7 @@ import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
@@ -135,7 +137,7 @@ public class PaymentServiceTest {
 
 
         verify(transformCommander, times(1))
-                .transformPaymentDto(eq(paymentDto));
+                .transformPaymentDto(paymentDto);
         verify(paymentRepository, times(1))
                 .saveAndFlush(any(BluecodeRequestMessage.class));
         verify(requestCommander, times(1))
@@ -148,12 +150,12 @@ public class PaymentServiceTest {
         PaymentDto paymentDto = new PaymentDto();
         //when
 
-        when(transformCommander.transformPaymentDto(paymentDto))
-                .thenThrow(new BluecodeTransformBadParametersException("test: " + EXCEPTION_TEST_MESSAGE));
+        when(transformCommander.transformPaymentDto(eq(paymentDto)))
+                .thenThrow(new BluecodeTransformBadParametersException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiTransformException.class)
                 .isThrownBy(() -> paymentService.beginTransaction(paymentDto))
-                .withMessage("test: " + EXCEPTION_TEST_MESSAGE);
+                .withMessage(EXCEPTION_TEST_MESSAGE);
 
 
         verify(transformCommander, times(1))
@@ -226,23 +228,23 @@ public class PaymentServiceTest {
     void shouldTriggerApiExceptionUpdatePaymentTest() {
         PaymentDto paymentDto = new PaymentDto();
         //when
-        when(paymentRepository.saveAndFlush(any(RequestMessage.class)))
-                .thenReturn(new BluecodeRequestMessage());
-        when(transformCommander.transformPaymentDto(paymentDto))
-                .thenReturn(new BluecodeRequestMessage());
-        when(requestCommander.updatePayment(any(RequestMessage.class)))
+//        when(paymentRepository.saveAndFlush(any(RequestMessage.class)))
+//                .thenReturn(new BluecodeRequestMessage());
+//        when(transformCommander.transformPaymentDto(paymentDto))
+//                .thenReturn(new BluecodeRequestMessage());
+        when(requestCommander.updatePayment(any()))
                 .thenThrow(new BluecodeFeignInternalException(EXCEPTION_TEST_MESSAGE));
 
         assertThatExceptionOfType(ApiFeignException.class)
                 .isThrownBy(() -> paymentService.updatePayment(paymentDto))
                 .withMessage(EXCEPTION_TEST_MESSAGE);
 
-        verify(transformCommander, times(1))
-                .transformPaymentDto(eq(paymentDto));
-        verify(paymentRepository, times(1))
-                .saveAndFlush(any(BluecodeRequestMessage.class));
+//        verify(transformCommander, times(1))
+//                .transformPaymentDto(paymentDto);
+//        verify(paymentRepository, times(1))
+//                .saveAndFlush(any(BluecodeRequestMessage.class));
         verify(requestCommander, times(1))
-                .updatePayment(any(BluecodeRequestMessage.class));
+                .updatePayment(any());
     }
 
     @Test
@@ -590,8 +592,7 @@ public class PaymentServiceTest {
                 .withApi(api)
                 .build();
 
-        when(transformCommander.transformPaymentIdDto(dto))
-                .thenReturn(new BluecodeTransactionMessage());
+
         when(paymentRepository.getById(id))
                 .thenReturn(null);
 

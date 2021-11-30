@@ -1,6 +1,6 @@
 package com.example.paymentbackendtemplate.service;
 
-import com.example.paymentbackendtemplate.exception.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
 import template.model.RefundMessage;

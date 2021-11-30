@@ -1,0 +1,8 @@
+{
+  "result": "PROCESSING",
+  "status": {
+    "merchant_tx_id": "0eb82bd4-5140-11ec-bf63-0242ac130002",
+    "check_status_in": 1000,
+    "ttl": 30000
+  }
+}

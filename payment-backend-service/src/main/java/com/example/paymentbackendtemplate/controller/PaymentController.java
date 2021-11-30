@@ -1,6 +1,6 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.paymentbackendtemplate.exception.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
 import com.example.paymentbackendtemplate.service.PaymentService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

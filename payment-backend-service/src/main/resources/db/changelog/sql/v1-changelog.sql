@@ -22,3 +22,7 @@ create table payment_bluecode (
     terminal varchar(255),
     tip_amount int4 not null
 ) INHERITS (payment);
+
+create table payment_test (
+    test_field varchar(255) not null
+) INHERITS (payment);

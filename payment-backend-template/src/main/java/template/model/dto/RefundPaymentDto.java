@@ -1,6 +1,8 @@
 package template.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Min;
@@ -9,6 +11,8 @@ import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @SuperBuilder(toBuilder = true, setterPrefix = "with")
 public class RefundPaymentDto {
 

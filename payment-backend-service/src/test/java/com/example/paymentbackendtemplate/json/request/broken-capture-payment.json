@@ -1,0 +1,9 @@
+{
+  "api": "bluecode",
+  "amount": 1000,
+  "discountAmount": -4,
+  "currency": "MOR",
+  "source": "pos",
+  "barcode": "SUCCESS_ALWAYS",
+  "description": "test_desc"
+}

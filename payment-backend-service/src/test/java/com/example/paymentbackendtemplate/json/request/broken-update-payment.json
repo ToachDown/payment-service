@@ -1,0 +1,9 @@
+{
+  "api": "bluecode",
+  "amount": 10001,
+  "discountAmount": -1001,
+  "currency": "fEUR",
+  "source": "poddfs",
+  "barcode": "SUCCESS_ALWAYS",
+  "description": "testf_desc"
+}

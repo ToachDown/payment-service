@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "payment_test")
 public class RequestMessageTest extends RequestMessage {
 
+    private String testField;
+
     public RequestMessageTest() {
     }
 }
