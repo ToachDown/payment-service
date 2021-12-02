@@ -6,6 +6,7 @@ import com.example.backendtemplate.model.RefundMessage;
 import com.example.backendtemplate.model.RequestMessage;
 import com.example.backendtemplate.model.ResponseMessage;
 import com.example.backendtemplate.model.TransactionMessage;
+import com.example.paymentbackendtemplate.exception.custom.StarterNotResolvedException;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -28,34 +29,72 @@ public class RequestCommander {
     }
 
     public ResponseMessage startTransaction(RequestMessage request) {
-        return paymentResolverMap.get(request.getType()).startPayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.startPayment(request);
     }
 
     public ResponseMessage updatePayment(RequestMessage request) {
-        return paymentResolverMap.get(request.getType()).updatePayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.updatePayment(request);
     }
 
     public ResponseMessage captureTransaction(RequestMessage request) {
-        return paymentResolverMap.get(request.getType()).capturePayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.capturePayment(request);
     }
 
     public ResponseMessage statusTransaction(TransactionMessage request) {
-        return paymentResolverMap.get(request.getType()).statusPayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.statusPayment(request);
     }
 
     public ResponseMessage cancelTransaction(TransactionMessage request) {
-        return paymentResolverMap.get(request.getType()).cancelPayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.cancelPayment(request);
     }
 
     public ResponseMessage refundPayment(RefundMessage request) {
-        return paymentResolverMap.get(request.getType()).refundPayment(request);
+        final PaymentResolver<RequestMessage, RefundMessage, TransactionMessage, ResponseMessage> resolver =
+                paymentResolverMap.get(request.getType());
+        if(resolver == null) {
+            throw new StarterNotResolvedException();
+        }
+        return resolver.refundPayment(request);
     }
 
     public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) {
-        return paymentStateChangerMap.get(request.getType()).changeStateWithResponse(request, response);
+        final PaymentUpdater<RequestMessage, ResponseMessage> updater = paymentStateChangerMap.get(request.getType());
+        if(updater == null) {
+            throw new StarterNotResolvedException();
+        }
+        return updater.changeStateWithResponse(request, response);
     }
 
     public RequestMessage changePaymentState(RequestMessage request, String state) {
-        return paymentStateChangerMap.get(request.getType()).changeState(request, state);
+        final PaymentUpdater<RequestMessage, ResponseMessage> updater = paymentStateChangerMap.get(request.getType());
+        if(updater == null) {
+            throw new StarterNotResolvedException();
+        }
+        return updater.changeState(request, state);
     }
 }

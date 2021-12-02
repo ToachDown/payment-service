@@ -33,7 +33,7 @@ public class PaymentService {
     public ResponseMessage beginTransaction(PaymentDto dto) {
         RequestMessage request = transformCommander.transformPaymentDto(dto);
         request = paymentRepository.saveAndFlush(request);
-        ResponseMessage response = requestCommander.startTransaction(request);
+        final ResponseMessage response = requestCommander.startTransaction(request);
         request = requestCommander.changePaymentStateWithResponse(request, response);
         paymentRepository.save(request);
         return response;

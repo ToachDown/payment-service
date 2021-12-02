@@ -8,6 +8,7 @@ import com.example.backendtemplate.model.TransactionMessage;
 import com.example.backendtemplate.model.dto.PaymentDto;
 import com.example.backendtemplate.model.dto.RefundPaymentDto;
 import com.example.backendtemplate.model.dto.TransactionDto;
+import com.example.paymentbackendtemplate.exception.custom.StarterNotResolvedException;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -29,14 +30,26 @@ public class TransformCommander {
     }
 
     public RefundMessage transformRefundDto(RefundPaymentDto dto) throws ApiFeignException {
-        return refundTransformMap.get(dto.getApi()).transformDto(dto);
+        PaymentAwareTransformer<RefundMessage, RefundPaymentDto> transformer = refundTransformMap.get(dto.getApi());
+        if(transformer == null) {
+            throw new StarterNotResolvedException();
+        }
+        return transformer.transformDto(dto);
     }
 
     public TransactionMessage transformPaymentIdDto(TransactionDto dto) throws ApiFeignException {
-        return txIdTransformMap.get(dto.getApi()).transformDto(dto);
+        PaymentAwareTransformer<TransactionMessage, TransactionDto> transformer = txIdTransformMap.get(dto.getApi());
+        if(transformer == null) {
+            throw new StarterNotResolvedException();
+        }
+        return transformer.transformDto(dto);
     }
 
     public RequestMessage transformPaymentDto(PaymentDto dto) throws ApiFeignException {
-        return paymentTransformMap.get(dto.getApi()).transformDto(dto);
+        PaymentAwareTransformer<RequestMessage, PaymentDto> transformer = paymentTransformMap.get(dto.getApi());
+        if(transformer == null) {
+            throw new StarterNotResolvedException();
+        }
+        return transformer.transformDto(dto);
     }
 }

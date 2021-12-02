@@ -20,7 +20,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @Component
-public class BluecodePaymentResolver implements PaymentResolver<BluecodeRequestMessage, BluecodeRefundMessage, BluecodeTransactionMessage, BluecodeResponseMessage> {
+public class BluecodePaymentResolver
+        implements PaymentResolver<BluecodeRequestMessage, BluecodeRefundMessage, BluecodeTransactionMessage, BluecodeResponseMessage> {
 
     private static final String PAYMENT_API_NOT_SUPPORT_OPERATION = "this payment api not support this operation";
 

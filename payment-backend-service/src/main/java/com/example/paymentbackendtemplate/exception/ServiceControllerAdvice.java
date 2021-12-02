@@ -1,6 +1,7 @@
 package com.example.paymentbackendtemplate.exception;
 
 import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
+import com.example.paymentbackendtemplate.exception.custom.StarterNotResolvedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
@@ -15,6 +16,11 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ServiceControllerAdvice {
+
+    @ExceptionHandler({StarterNotResolvedException.class})
+    public ResponseEntity<String> dataBaseNotFoundHandler(StarterNotResolvedException starterNotResolvedException) {
+        return new ResponseEntity<String>("this payment api not resolved", HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler({DataBaseNotFoundException.class})
     public ResponseEntity<String> dataBaseNotFoundHandler(DataBaseNotFoundException dataBaseNotFoundException) {
