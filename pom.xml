@@ -26,6 +26,7 @@
         <!--        modules  version-->
         <bluecode.starter>2.0</bluecode.starter>
         <backend.template>2.0</backend.template>
+        <backend.service>2.0</backend.service>
         <!--        maven java version-->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -67,6 +68,11 @@
                 <groupId>com.example</groupId>
                 <artifactId>bluecode-pay</artifactId>
                 <version>${bluecode.starter}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>payment-backend-service</artifactId>
+                <version>${backend.service}</version>
             </dependency>
 
             <!--            Jackson-->
@@ -257,8 +263,13 @@
 
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>

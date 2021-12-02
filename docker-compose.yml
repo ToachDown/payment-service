@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  backend:
+    image: "trax0dron/payment:0.4"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: on-failure
+  db:
+    image: "postgres:13-alpine"
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POTGRES_DB: pay
+      POSTGRES_USERNAME: postgres
+
+#services:
+#  db:
+#    image: "postgres:13-alpine"
+#    container_name: postgres
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_PASSWORD: 1234
+#      POTGRES_DB: payment
+#      POSTGRES_USERNAME: postgres
+#    restart: on-failure
+#  application:
+#    image: "trax0dron/payment-api"
+#    container_name: payment-task
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      POSTGRES_PORT: db
+#    restart: on-failure
+#    links:
+#      - db
+

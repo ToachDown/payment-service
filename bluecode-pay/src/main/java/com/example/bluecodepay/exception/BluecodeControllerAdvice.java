@@ -11,7 +11,7 @@ public class BluecodeControllerAdvice {
 
     @ExceptionHandler(BluecodeFeignInternalException.class)
     public ResponseEntity<String> handlerSystemError(BluecodeFeignInternalException blucodeFeignException) {
-        return new ResponseEntity<>("System error: " + blucodeFeignException.getMessage(),
+        return new ResponseEntity<>(blucodeFeignException.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

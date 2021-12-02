@@ -1,5 +1,8 @@
 package com.example.bluecodepay.transformer;
 
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import com.example.bluecodepay.exception.custom.BluecodeFeignBadRequestException;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
 import com.example.bluecodepay.model.enums.Barcode;
@@ -12,9 +15,6 @@ import com.example.bluecodepay.model.request.BluecodeTransactionMessage;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 

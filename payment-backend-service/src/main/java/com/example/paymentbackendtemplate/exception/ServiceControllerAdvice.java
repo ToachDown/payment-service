@@ -1,6 +1,6 @@
 package com.example.paymentbackendtemplate.exception;
 
-import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ServiceControllerAdvice {
 
-    @ExceptionHandler({DataBaseException.class})
-    public ResponseEntity<String> dataBaseNotFoundHandler(DataBaseException dataBaseException) {
-        return new ResponseEntity<String>("Not found entity in database: " + dataBaseException.getMessage(), HttpStatus.NOT_FOUND);
+    @ExceptionHandler({DataBaseNotFoundException.class})
+    public ResponseEntity<String> dataBaseNotFoundHandler(DataBaseNotFoundException dataBaseNotFoundException) {
+        return new ResponseEntity<String>("Not found entity in database: " + dataBaseNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({HttpMessageConversionException.class})

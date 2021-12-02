@@ -1,10 +1,10 @@
 package com.example.bluecodepay.service.updater;
 
+import com.example.backendtemplate.interfaces.PaymentUpdater;
 import com.example.bluecodepay.model.enums.State;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.model.response.BluecodeResponseMessageOk;
 import org.springframework.stereotype.Component;
-import template.interfaces.PaymentUpdater;
 
 @Component
 public class BluecodePaymentUpdater implements PaymentUpdater<BluecodeRequestMessage, BluecodeResponseMessageOk> {

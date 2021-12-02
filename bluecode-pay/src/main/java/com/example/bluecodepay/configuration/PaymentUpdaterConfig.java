@@ -1,11 +1,11 @@
 package com.example.bluecodepay.configuration;
 
+import com.example.backendtemplate.interfaces.PaymentUpdater;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import template.interfaces.PaymentUpdater;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
 
 import java.util.List;
 import java.util.Map;

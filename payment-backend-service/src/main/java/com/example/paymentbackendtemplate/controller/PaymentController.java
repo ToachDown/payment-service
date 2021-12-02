@@ -1,14 +1,14 @@
 package com.example.paymentbackendtemplate.controller;
 
-import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
+import com.example.backendtemplate.exception.ApiFeignException;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
 import com.example.paymentbackendtemplate.service.PaymentService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import template.exception.ApiFeignException;
-import template.model.ResponseMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -53,13 +53,13 @@ public class PaymentController {
 
     @ResponseBody
     @PostMapping(value = "/cancel", consumes = "application/json", produces = "application/json")
-    public ResponseMessage cancelPayment(@RequestBody @Valid @NotNull final TransactionDto cancel) throws ApiFeignException, DataBaseException {
+    public ResponseMessage cancelPayment(@RequestBody @Valid @NotNull final TransactionDto cancel) throws ApiFeignException, DataBaseNotFoundException {
         return paymentService.cancelPayment(cancel);
     }
 
     @ResponseBody
     @PostMapping(value = "/refund", produces = "application/json", consumes = "application/json")
-    public ResponseMessage refundPayment(@RequestBody @Valid @NotNull final RefundPaymentDto refund) throws ApiFeignException, DataBaseException {
+    public ResponseMessage refundPayment(@RequestBody @Valid @NotNull final RefundPaymentDto refund) throws ApiFeignException, DataBaseNotFoundException {
         return paymentService.refundPayment(refund);
     }
 }

@@ -41,7 +41,6 @@ public class JsonTestHelper {
     }
 
 
-
     public static String getStartRequestJson() throws ParseException, FileNotFoundException {
         JSONObject obj = (JSONObject) parser.parse(new FileReader(PATH_REQUEST + "/start-payment.json"));
         return obj.toJSONString();

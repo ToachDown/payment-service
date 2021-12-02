@@ -1,5 +1,6 @@
 package com.example.paymentbackendtemplate.integration;
 
+import com.example.backendtemplate.model.RequestMessage;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.Source;
@@ -17,13 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import template.model.RequestMessage;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @Testcontainers
@@ -155,7 +153,7 @@ public class RepositoryTest {
         RequestMessage saveRequest = paymentRepository.save(requestMessage);
 
         assertNotNull(saveRequest);
-    //    assertThat(any(saveRequest.getClass())).isEqualTo(any(RequestMessageTest.class));
+        //    assertThat(any(saveRequest.getClass())).isEqualTo(any(RequestMessageTest.class));
         assertEquals(saveRequest.getType(), "test");
         assertNotNull(saveRequest.getId());
     }
@@ -239,7 +237,7 @@ public class RepositoryTest {
         RequestMessage resultRequestMessage = paymentRepository.getById(requestMessage.getId());
 
         assertNotNull(resultRequestMessage);
-    //    assertThat(any(resultRequestMessage.getClass())).isEqualTo(any(RequestMessageTest.class));
+        //    assertThat(any(resultRequestMessage.getClass())).isEqualTo(any(RequestMessageTest.class));
         assertNotNull(requestMessage.getId());
         assertEquals("test", requestMessageTest.getType());
     }

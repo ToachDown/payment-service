@@ -1,4 +1,4 @@
-package template.model.dto;
+package com.example.backendtemplate.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

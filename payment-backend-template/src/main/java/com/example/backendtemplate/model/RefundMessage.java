@@ -1,4 +1,4 @@
-package template.model;
+package com.example.backendtemplate.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

@@ -1,7 +1,7 @@
-package template.interfaces;
+package com.example.backendtemplate.interfaces;
 
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
 
 public interface PaymentUpdater<R extends RequestMessage, T extends ResponseMessage> {
 

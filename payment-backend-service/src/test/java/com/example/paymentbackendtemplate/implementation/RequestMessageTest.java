@@ -1,9 +1,9 @@
 package com.example.paymentbackendtemplate.implementation;
 
+import com.example.backendtemplate.model.RequestMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
-import template.model.RequestMessage;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

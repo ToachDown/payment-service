@@ -1,5 +1,11 @@
 package com.example.bluecodepay.service;
 
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.TransactionMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
 import com.example.bluecodepay.model.enums.Barcode;
 import com.example.bluecodepay.model.enums.Currency;
@@ -14,12 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.TransactionMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 

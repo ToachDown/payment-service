@@ -2,7 +2,6 @@ package com.example.bluecodepay.model.response;
 
 import com.example.bluecodepay.model.enums.ErrorCode;
 import com.example.bluecodepay.model.enums.Result;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.persistence.Enumerated;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 public class BluecodeResponseMessageError extends BluecodeResponseMessage {
 

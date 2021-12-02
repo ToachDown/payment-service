@@ -1,4 +1,4 @@
-package template.exception;
+package com.example.backendtemplate.exception;
 
 public class ApiFeignException extends RuntimeException {
 

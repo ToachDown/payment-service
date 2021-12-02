@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-import template.exception.ApiFeignException;
+import com.example.backendtemplate.exception.ApiFeignException;
 
 public class BluecodeFeignUnsupportedMethodException extends ApiFeignException {
 

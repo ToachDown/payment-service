@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @EnableFeignClients(basePackages = {"com.example.bluecodepay.client"})
-@EnableScheduling
 @ComponentScan("com.example.bluecodepay")
 public class FeignConfig {
 

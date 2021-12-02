@@ -1,8 +1,15 @@
 package com.example.paymentbackendtemplate.integration;
 
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.TransactionMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import com.example.bluecodepay.exception.custom.BluecodeFeignUnsupportedMethodException;
 import com.example.paymentbackendtemplate.controller.PaymentController;
-import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
 import com.example.paymentbackendtemplate.helpers.JsonTestHelper;
 import com.example.paymentbackendtemplate.implementation.RefundMessageTest;
 import com.example.paymentbackendtemplate.implementation.RequestMessageTest;
@@ -23,13 +30,6 @@ import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
-import template.model.TransactionMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import javax.servlet.ServletContext;
 import java.util.UUID;
@@ -259,7 +259,7 @@ public class IntegrationControllerTest {
         when(transformCommander.transformPaymentIdDto(any(TransactionDto.class)))
                 .thenReturn(txMessage);
         when(paymentRepository.getById(any()))
-                .thenThrow(new DataBaseException("payment with id [" + "61a2dd60-4f62-11ec-81d3-0242ac130003" + "]"));
+                .thenThrow(new DataBaseNotFoundException("payment with id [" + "61a2dd60-4f62-11ec-81d3-0242ac130003" + "]"));
 
         this.mockMvc.perform(post("/api/cancel")
                         .content(JsonTestHelper.getCancelRequestJson())
@@ -307,7 +307,7 @@ public class IntegrationControllerTest {
     public void shouldDataBaseExceptionRefundPaymentTest() throws Exception {
 
         when(paymentRepository.getById(any()))
-                .thenThrow(new DataBaseException("payment with id [" + "61a2dd60-4f62-11ec-81d3-0242ac130003" + "]"));
+                .thenThrow(new DataBaseNotFoundException("payment with id [" + "61a2dd60-4f62-11ec-81d3-0242ac130003" + "]"));
 
         this.mockMvc.perform(post("/api/refund")
                         .content(JsonTestHelper.getRefundRequestJson())

@@ -1,9 +1,9 @@
 package com.example.paymentbackendtemplate.implementation;
 
+import com.example.backendtemplate.model.TransactionMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
-import template.model.TransactionMessage;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

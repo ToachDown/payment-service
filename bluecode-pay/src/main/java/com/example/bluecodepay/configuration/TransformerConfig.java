@@ -1,15 +1,15 @@
 package com.example.bluecodepay.configuration;
 
+import com.example.backendtemplate.interfaces.PaymentAwareTransformer;
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.TransactionMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import template.interfaces.PaymentAwareTransformer;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.TransactionMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import java.util.List;
 import java.util.Map;

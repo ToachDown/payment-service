@@ -1,5 +1,6 @@
 package com.example.bluecodepay.model.request;
 
+import com.example.backendtemplate.model.RequestMessage;
 import com.example.bluecodepay.model.enums.Currency;
 import com.example.bluecodepay.model.enums.Scheme;
 import com.example.bluecodepay.model.enums.State;
@@ -10,7 +11,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import template.model.RequestMessage;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

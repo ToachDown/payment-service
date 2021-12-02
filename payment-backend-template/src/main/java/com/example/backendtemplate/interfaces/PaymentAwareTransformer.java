@@ -1,4 +1,4 @@
-package template.interfaces;
+package com.example.backendtemplate.interfaces;
 
 public interface PaymentAwareTransformer<T, K> {
 

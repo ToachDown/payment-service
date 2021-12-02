@@ -1,10 +1,10 @@
 package com.example.bluecodepay.service.transformer;
 
+import com.example.backendtemplate.interfaces.PaymentAwareTransformer;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import com.example.bluecodepay.model.request.BluecodeTransactionMessage;
 import com.example.bluecodepay.transformer.BluecodeTransformer;
 import org.springframework.stereotype.Component;
-import template.interfaces.PaymentAwareTransformer;
-import template.model.dto.TransactionDto;
 
 @Component
 public class BluecodeTransactionTransformer implements PaymentAwareTransformer<BluecodeTransactionMessage, TransactionDto> {

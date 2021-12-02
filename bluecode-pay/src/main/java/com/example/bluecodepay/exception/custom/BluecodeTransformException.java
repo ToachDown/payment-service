@@ -1,6 +1,6 @@
 package com.example.bluecodepay.exception.custom;
 
-import template.exception.ApiTransformException;
+import com.example.backendtemplate.exception.ApiTransformException;
 
 public class BluecodeTransformException extends ApiTransformException {
 

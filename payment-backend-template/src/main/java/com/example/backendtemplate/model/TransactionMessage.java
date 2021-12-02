@@ -1,20 +1,19 @@
-package template.model;
+package com.example.backendtemplate.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class ResponseMessage {
+public abstract class TransactionMessage {
 
     @JsonProperty("type")
     private String type;
-
 }

@@ -1,12 +1,21 @@
 package com.example.paymentbackendtemplate.junit;
 
+import com.example.backendtemplate.exception.ApiFeignException;
+import com.example.backendtemplate.exception.ApiTransformException;
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.TransactionMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
 import com.example.bluecodepay.exception.custom.BluecodeFeignInternalException;
 import com.example.bluecodepay.exception.custom.BluecodeTransformBadParametersException;
 import com.example.bluecodepay.model.request.BluecodeRefundMessage;
 import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.model.request.BluecodeTransactionMessage;
 import com.example.bluecodepay.model.response.BluecodeResponseMessage;
-import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
 import com.example.paymentbackendtemplate.implementation.RefundMessageTest;
 import com.example.paymentbackendtemplate.implementation.RequestMessageTest;
 import com.example.paymentbackendtemplate.implementation.ResponseMessageTest;
@@ -21,19 +30,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import template.exception.ApiFeignException;
-import template.exception.ApiTransformException;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
-import template.model.TransactionMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
@@ -434,7 +435,7 @@ public class PaymentServiceTest {
         when(paymentRepository.getById(eq(refundPaymentDto.getTransactionId())))
                 .thenReturn(null);
 
-        assertThatExceptionOfType(DataBaseException.class)
+        assertThatExceptionOfType(DataBaseNotFoundException.class)
                 .isThrownBy(() -> paymentService.refundPayment(refundPaymentDto))
                 .withMessage("payment with id [" + refundPaymentDto.getTransactionId() + "]");
 
@@ -596,7 +597,7 @@ public class PaymentServiceTest {
         when(paymentRepository.getById(id))
                 .thenReturn(null);
 
-        assertThatExceptionOfType(DataBaseException.class)
+        assertThatExceptionOfType(DataBaseNotFoundException.class)
                 .isThrownBy(() -> paymentService.cancelPayment(dto))
                 .withMessage("payment with id [" + dto.getPaymentId() + "]");
 

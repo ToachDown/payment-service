@@ -1,13 +1,13 @@
 package com.example.paymentbackendtemplate.service;
 
+import com.example.backendtemplate.exception.ApiFeignException;
+import com.example.backendtemplate.interfaces.PaymentResolver;
+import com.example.backendtemplate.interfaces.PaymentUpdater;
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.TransactionMessage;
 import org.springframework.stereotype.Component;
-import template.exception.ApiFeignException;
-import template.interfaces.PaymentResolver;
-import template.interfaces.PaymentUpdater;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
-import template.model.TransactionMessage;
 
 import java.util.Map;
 
@@ -28,35 +28,35 @@ public class RequestCommander {
         this.paymentStateChangerMap = paymentStateChangerMap;
     }
 
-    public ResponseMessage startTransaction(RequestMessage request) throws ApiFeignException {
+    public ResponseMessage startTransaction(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).startPayment(request);
     }
 
-    public ResponseMessage updatePayment(RequestMessage request) throws ApiFeignException {
+    public ResponseMessage updatePayment(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).updatePayment(request);
     }
 
-    public ResponseMessage captureTransaction(RequestMessage request) throws ApiFeignException {
+    public ResponseMessage captureTransaction(RequestMessage request)  {
         return paymentResolverMap.get(request.getType()).capturePayment(request);
     }
 
-    public ResponseMessage statusTransaction(TransactionMessage request) throws ApiFeignException {
+    public ResponseMessage statusTransaction(TransactionMessage request)  {
         return paymentResolverMap.get(request.getType()).statusPayment(request);
     }
 
-    public ResponseMessage cancelTransaction(TransactionMessage request) throws ApiFeignException {
+    public ResponseMessage cancelTransaction(TransactionMessage request)  {
         return paymentResolverMap.get(request.getType()).cancelPayment(request);
     }
 
-    public ResponseMessage refundPayment(RefundMessage request) throws ApiFeignException {
+    public ResponseMessage refundPayment(RefundMessage request) {
         return paymentResolverMap.get(request.getType()).refundPayment(request);
     }
 
-    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) throws ApiFeignException {
+    public RequestMessage changePaymentStateWithResponse(RequestMessage request, ResponseMessage response) {
         return paymentStateChangerMap.get(request.getType()).changeStateWithResponse(request, response);
     }
 
-    public RequestMessage changePaymentState(RequestMessage request, String state) throws ApiFeignException {
+    public RequestMessage changePaymentState(RequestMessage request, String state) {
         return paymentStateChangerMap.get(request.getType()).changeState(request, state);
     }
 }

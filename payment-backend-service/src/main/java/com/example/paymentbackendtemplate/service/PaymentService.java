@@ -1,15 +1,15 @@
 package com.example.paymentbackendtemplate.service;
 
-import com.example.paymentbackendtemplate.exception.custom.DataBaseException;
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.TransactionMessage;
+import com.example.backendtemplate.model.dto.PaymentDto;
+import com.example.backendtemplate.model.dto.RefundPaymentDto;
+import com.example.backendtemplate.model.dto.TransactionDto;
+import com.example.paymentbackendtemplate.exception.custom.DataBaseNotFoundException;
 import com.example.paymentbackendtemplate.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
-import template.model.TransactionMessage;
-import template.model.dto.PaymentDto;
-import template.model.dto.RefundPaymentDto;
-import template.model.dto.TransactionDto;
 
 import java.util.UUID;
 
@@ -52,7 +52,7 @@ public class PaymentService {
         final RefundMessage refundRequest = transformCommander.transformRefundDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getTransactionId());
         if (request == null) {
-            throw new DataBaseException("payment with id [" + dto.getTransactionId() + "]");
+            throw new DataBaseNotFoundException("payment with id [" + dto.getTransactionId() + "]");
         }
         final ResponseMessage response = requestCommander.refundPayment(refundRequest);
         request = requestCommander.changePaymentState(request, "REFUNDED");
@@ -74,7 +74,7 @@ public class PaymentService {
         final TransactionMessage txRequest = transformCommander.transformPaymentIdDto(dto);
         RequestMessage request = paymentRepository.getById(dto.getPaymentId());
         if (request == null) {
-            throw new DataBaseException("payment with id [" + dto.getPaymentId() + "]");
+            throw new DataBaseNotFoundException("payment with id [" + dto.getPaymentId() + "]");
         }
         final ResponseMessage response = requestCommander.cancelTransaction(txRequest);
         request = requestCommander.changePaymentState(request, "CANCELLED");

@@ -1,5 +1,6 @@
 package com.example.bluecodepay.service;
 
+import com.example.backendtemplate.model.ResponseMessage;
 import com.example.bluecodepay.client.BluecodeFeignClient;
 import com.example.bluecodepay.exception.custom.BluecodeFeignBadRequestException;
 import com.example.bluecodepay.exception.custom.BluecodeFeignNotFoundException;
@@ -22,7 +23,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import template.model.ResponseMessage;
 
 import java.util.Collections;
 import java.util.UUID;

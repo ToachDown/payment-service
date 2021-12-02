@@ -1,9 +1,9 @@
-package template.interfaces;
+package com.example.backendtemplate.interfaces;
 
-import template.model.RefundMessage;
-import template.model.RequestMessage;
-import template.model.ResponseMessage;
-import template.model.TransactionMessage;
+import com.example.backendtemplate.model.RefundMessage;
+import com.example.backendtemplate.model.RequestMessage;
+import com.example.backendtemplate.model.ResponseMessage;
+import com.example.backendtemplate.model.TransactionMessage;
 
 public interface PaymentResolver<R extends RequestMessage, T extends RefundMessage, V extends TransactionMessage, G extends ResponseMessage> {
 
