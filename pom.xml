@@ -2,18 +2,18 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>org.example</groupId>
     <artifactId>payment-API</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <modules>
         <module>payment-backend-service</module>
@@ -23,8 +23,9 @@
 
     <properties>
         <!--        modules  version-->
-        <bluecode.starter>0.0.1</bluecode.starter>
-        <backend.template>0.0.1</backend.template>
+        <bluecode.starter>2.0</bluecode.starter>
+        <backend.template>2.0</backend.template>
+        <backend.service>2.0</backend.service>
         <!--        maven java version-->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -40,6 +41,13 @@
         <resilience4j>1.7.1</resilience4j>
         <spring.aspects>5.3.12</spring.aspects>
         <swagger>1.5.2</swagger>
+        <junit>5.5.2</junit>
+        <mockito.core>2.24.0</mockito.core>
+        <spring.test>5.3.3</spring.test>
+        <json.path>2.5.0</json.path>
+        <junit.vintage>5.7.2</junit.vintage>
+        <test.containers>1.16.2</test.containers>
+        <wiremock>2.31.0</wiremock>
         <!--        DataBase dependency version-->
         <liquibase.core>4.3.5</liquibase.core>
         <persistense.api.version>2.2</persistense.api.version>
@@ -59,6 +67,11 @@
                 <groupId>com.example</groupId>
                 <artifactId>bluecode-pay</artifactId>
                 <version>${bluecode.starter}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>payment-backend-service</artifactId>
+                <version>${backend.service}</version>
             </dependency>
 
             <!--            Jackson-->
@@ -95,6 +108,11 @@
                 <version>${spring.boot.version}</version>
                 <scope>runtime</scope>
                 <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -182,24 +200,64 @@
                 <artifactId>spring-aspects</artifactId>
                 <version>${spring.aspects}</version>
             </dependency>
+
+
+            <!--           tests-->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.core}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>${junit.vintage}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${test.containers}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${test.containers}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${test.containers}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.test}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tomakehurst</groupId>
+                <artifactId>wiremock-jre8</artifactId>
+                <version>${wiremock}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                    <configuration>
-                        <source>11</source>
-                        <target>11</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
 </project>

@@ -1,0 +1,8 @@
+{
+  "result": "OK",
+  "payment": {
+    "state": "FAILURE",
+    "code": "SYSTEM_FAILURE",
+    "acquirer_tx_id": "ABCDEF123400001111222"
+  }
+}

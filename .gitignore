@@ -5,6 +5,8 @@
 /bluecode-pay/mvnw
 /bluecode-pay/target
 
+/assembler/target
+
 /payment-backend-template/target
 
 /payment-backend-service/.mvn

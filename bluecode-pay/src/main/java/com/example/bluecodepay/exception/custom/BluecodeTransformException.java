@@ -1,0 +1,21 @@
+package com.example.bluecodepay.exception.custom;
+
+import com.example.backendtemplate.exception.ApiTransformException;
+
+public class BluecodeTransformException extends ApiTransformException {
+
+    public BluecodeTransformException() {
+    }
+
+    public BluecodeTransformException(String message) {
+        super(message);
+    }
+
+    public BluecodeTransformException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public BluecodeTransformException(Throwable cause) {
+        super(cause);
+    }
+}
