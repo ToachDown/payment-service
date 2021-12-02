@@ -5,13 +5,11 @@ import com.example.bluecodepay.model.request.BluecodeRequestMessage;
 import com.example.bluecodepay.model.response.BluecodeResponseMessage;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
 @Configuration
-@ComponentScan(basePackages = "com.example.bluecodepay")
 public class BluecodeSubTypesConfig {
 
     @Bean

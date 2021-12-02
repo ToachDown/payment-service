@@ -1,6 +1,5 @@
 package com.example.paymentbackendtemplate.service;
 
-import com.example.backendtemplate.exception.ApiFeignException;
 import com.example.backendtemplate.interfaces.PaymentResolver;
 import com.example.backendtemplate.interfaces.PaymentUpdater;
 import com.example.backendtemplate.model.RefundMessage;
@@ -36,15 +35,15 @@ public class RequestCommander {
         return paymentResolverMap.get(request.getType()).updatePayment(request);
     }
 
-    public ResponseMessage captureTransaction(RequestMessage request)  {
+    public ResponseMessage captureTransaction(RequestMessage request) {
         return paymentResolverMap.get(request.getType()).capturePayment(request);
     }
 
-    public ResponseMessage statusTransaction(TransactionMessage request)  {
+    public ResponseMessage statusTransaction(TransactionMessage request) {
         return paymentResolverMap.get(request.getType()).statusPayment(request);
     }
 
-    public ResponseMessage cancelTransaction(TransactionMessage request)  {
+    public ResponseMessage cancelTransaction(TransactionMessage request) {
         return paymentResolverMap.get(request.getType()).cancelPayment(request);
     }
 

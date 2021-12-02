@@ -1,41 +1,29 @@
 version: "3.9"
 services:
   backend:
-    image: "trax0dron/payment:0.4"
+    container_name: payment-api
+    image: "trax0dron/payment:1.0"
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+    links:
+      - db
     depends_on:
       - db
     restart: on-failure
   db:
     image: "postgres:13-alpine"
-    restart: on-failure
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: 1234
-      POTGRES_DB: pay
       POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: payment
+    restart: on-failure
 
-#services:
-#  db:
-#    image: "postgres:13-alpine"
-#    container_name: postgres
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_PASSWORD: 1234
-#      POTGRES_DB: payment
-#      POSTGRES_USERNAME: postgres
-#    restart: on-failure
-#  application:
-#    image: "trax0dron/payment-api"
-#    container_name: payment-task
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      POSTGRES_PORT: db
-#    restart: on-failure
-#    links:
-#      - db
+
 

@@ -1,7 +1,6 @@
 package com.example.bluecodepay.service.resolver;
 
 import com.example.backendtemplate.interfaces.PaymentResolver;
-import com.example.backendtemplate.model.ResponseMessage;
 import com.example.bluecodepay.annotation.FeignHandler;
 import com.example.bluecodepay.client.BluecodeFeignClient;
 import com.example.bluecodepay.exception.custom.BluecodeFeignUnsupportedMethodException;
