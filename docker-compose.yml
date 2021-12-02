@@ -2,7 +2,7 @@ version: "3.9"
 services:
   backend:
     container_name: payment-api
-    image: "trax0dron/payment:1.1"
+    image: "trax0dron/payment:1.2"
     ports:
       - "8080:8080"
     environment:
